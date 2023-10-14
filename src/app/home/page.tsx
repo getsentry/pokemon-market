@@ -1,14 +1,10 @@
-import Head from "next/head";
+"use client";
+
 import * as Sentry from "@sentry/nextjs";
 
 export default function Home() {
   return (
     <div>
-      <Head>
-        <title>Sentry Onboarding</title>
-        <meta name="description" content="Test Sentry for your Next.js app!" />
-      </Head>
-
       <main
         style={{
           minHeight: "100vh",
@@ -58,7 +54,7 @@ export default function Home() {
             try {
               const res = await fetch("/api/sentry-example-api");
               if (!res.ok) {
-                throw new Error("Sentry Example Frontend Error");
+                throw new Error("Sentry Example Frontend Error - v6");
               }
             } finally {
               transaction.finish();
@@ -70,7 +66,10 @@ export default function Home() {
 
         <p>
           Next, look for the error on the{" "}
-          <a href="https://wildcard-inc.sentry.io/issues/?project=6731936">Issues Page</a>.
+          <a href="https://wildcard-inc.sentry.io/issues/?project=6731936">
+            Issues Page
+          </a>
+          .
         </p>
         <p style={{ marginTop: "24px" }}>
           For more information, see{" "}

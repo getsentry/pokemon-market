@@ -1,34 +1,36 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Sentry Demo App - Pokemon Market
 
-## Getting Started
+This application is meant to be used as a demoinstraction of the Session Replay 
+feature on sentry.io.
 
-First, run the development server:
+## Running the App
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+### Locally
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Running __locally__ is nice for development because you get hot-reloading when 
+files change.
+For Demo purposes, build and run the production server (see below).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Make sure that `sentry.shared.dsn.js` includes an Org/DSN for which you are 
+   a part of.
+2. Run `yarn dev`
+3. Visit `http://localhost:3000` to see the Pokemon Market
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Afterwards, visit your sentry org (in step #1) to view Replays, Perfomance, and 
+Error from the demo.
 
-## Learn More
+### Production
 
-To learn more about Next.js, take a look at the following resources:
+The __production server__ is optimized for demo purposes because it includes:
+- Built (minified) assets & stacktraces
+- Release created on sentry.io
+- Source maps uploaded
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Make sure that `sentry.shared.dsn.js` includes an Org/DSN for which you are 
+   a part of.
+2. Run: `yarn build && yarn start`
+3. Visit `http://localhost:3000` to see the Pokemon Market
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Afterwards, visit your sentry org (in step #1) to view Replays, Perfomance, and
+Error from the demo.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

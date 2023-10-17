@@ -3,6 +3,19 @@ import type { Cursor } from "@/api/validators/pagination";
 import endpoint from '@/api/endpoint';
 import getCurrentUrl from "@/api/getCurrentUrl";
 
+type OffsetPage = {
+  offset: number;
+  limit: number;
+  url: string;
+};
+
+export interface ApiListResult<T> {
+  count: number,
+  next: null | OffsetPage;
+  previous: null | OffsetPage;
+  results: T[];
+}
+
 export default function jsonList<T>(
   req: NextApiRequest,
   cursor: Cursor,

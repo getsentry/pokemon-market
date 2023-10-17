@@ -1,0 +1,19 @@
+.layout {
+  display: grid;
+  grid-template-areas:
+    'img title'
+    'img desc';
+  grid-template-columns: max-content auto;
+}
+
+.img {
+  grid-area: img;
+}
+
+.title {
+  grid-area: title;
+}
+
+.desc {
+  grid-area: desc;
+}

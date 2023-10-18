@@ -1,12 +1,14 @@
-import {useQuery} from '@tanstack/react-query';
-import apiFetch from '@/components/apiFetch';
-import type { ApiListResult } from '@/api/jsonList';
-import type { Pokemon } from 'pokenode-ts';
+/* eslint-disable @next/next/no-img-element */ 
+
+import { useQuery } from "@tanstack/react-query";
+import apiFetch from "@/components/apiFetch";
+import type { ApiListResult } from "@/api/jsonList";
+import type { Pokemon } from "pokenode-ts";
 import PokemonCardView from "@/components/PokemonCardView.module.css";
 import Media from "@/components/Media.module.css";
-import Link from 'next/link';
-import cx from 'classnames';
-import { range } from '@/utils/array/range';
+import Link from "next/link";
+import cx from "classnames";
+import { range } from "@/utils/array/range";
 
 export default function Home() {
   const cardCount = 151;
@@ -14,7 +16,7 @@ export default function Home() {
   const { data } = useQuery<ApiListResult<Pokemon>>({
     queryKey: ["/api/pokemon"],
     queryFn: () => apiFetch("/api/pokemon", { limit: cardCount, offset: 0 }),
-    enabled: true
+    enabled: true,
   });
 
   const pokemonList = data?.results;
@@ -22,7 +24,6 @@ export default function Home() {
   const extraCardCount = pokemonList?.length
     ? 4 - (pokemonList.length % 4)
     : cardCount;
-  console.log({ extraCardCount, range: range(extraCardCount) });
 
   return (
     <div>
@@ -39,13 +40,16 @@ export default function Home() {
   );
 }
 
-function CardItem({pokemon}: {pokemon: Pokemon}) {
+function CardItem({ pokemon }: { pokemon: Pokemon }) {
   return (
-    <li key={pokemon.name} className={'bg-white hover:bg-hover'}>
-      <Link href={`/pokemon/${pokemon.name}`} className={cx(Media.layout, 'p-4')}>
+    <li key={pokemon.name} className={"bg-white hover:bg-hover"}>
+      <Link
+        href={`/pokemon/${pokemon.name}`}
+        className={cx(Media.layout, "p-4")}
+      >
         <div className={Media.img}>
           <img
-            src={pokemon.sprites.front_default}
+            src={pokemon.sprites.front_default ?? undefined}
             alt={pokemon.name}
             className="h-24 w-24"
           />
@@ -65,5 +69,5 @@ function CardItem({pokemon}: {pokemon: Pokemon}) {
         </div>
       </Link>
     </li>
-  )
+  );
 }

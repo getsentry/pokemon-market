@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 import type { Pokemon } from "pokenode-ts";
 import cx from "classnames";
 import { useState } from "react";
@@ -16,7 +18,7 @@ export default function ImageViewer({
   return (
     <div className={cx(className, "grid grid-flow-row gap-px p-px bg-black")}>
       <img
-        src={pokemon.sprites[img]}
+        src={pokemon.sprites[img] ?? undefined}
         alt={pokemon.name}
         className={cx("bg-white", "h-96", "w-96")}
       />
@@ -26,7 +28,7 @@ export default function ImageViewer({
           className="bg-white hover:bg-hover text-black flex justify-center p-2"
         >
           <img
-            src={pokemon.sprites.front_default}
+            src={pokemon.sprites.front_default ?? undefined}
             alt={pokemon.name}
             className="h-16 w-16"
           />
@@ -36,7 +38,7 @@ export default function ImageViewer({
           className="bg-white hover:bg-hover text-black flex justify-center p-2"
         >
           <img
-            src={pokemon.sprites.back_default}
+            src={pokemon.sprites.back_default ?? undefined}
             alt={pokemon.name}
             className="h-16 w-16"
           />

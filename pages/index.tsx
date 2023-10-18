@@ -41,8 +41,8 @@ export default function Home() {
 
 function CardItem({pokemon}: {pokemon: Pokemon}) {
   return (
-    <li key={pokemon.name} className={'bg-white hover:bg-hover p-4'}>
-      <Link href={`/pokemon/${pokemon.name}`} className={Media.layout}>
+    <li key={pokemon.name} className={'bg-white hover:bg-hover'}>
+      <Link href={`/pokemon/${pokemon.name}`} className={cx(Media.layout, 'p-4')}>
         <div className={Media.img}>
           <img
             src={pokemon.sprites.front_default}

@@ -1,7 +1,7 @@
+import FlagPicker from "@/components/FlagPicker";
 import Link from "next/link";
 import { ReactElement } from "react";
 import { BsCart, BsShop } from "react-icons/bs";
-
 
 export function DefaultLayout(page: ReactElement) {
   return (
@@ -11,7 +11,10 @@ export function DefaultLayout(page: ReactElement) {
           <li className="">About</li>
           <li className="">Contact Us</li>
         </ul>
-        <ul className="flex flex-grow justify-end">
+        <ul className="flex flex-grow justify-end gap-4">
+          <li className="">
+            <FlagPicker />
+          </li>
           <li className="">Log In</li>
         </ul>
       </aside>

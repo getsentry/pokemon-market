@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ReactElement } from "react";
 import { BsCart, BsShop } from "react-icons/bs";
 
@@ -25,10 +26,14 @@ export function DefaultLayout(page: ReactElement) {
           </li>
         </ul>
       </header>
-      <nav className="px-10 py-5 bg-white">
+      <nav className="px-10 py-5 bg-white text-black">
         <ul className="flex gap-10">
-          <li>Home</li>
-          <li>Featured</li>
+          <li>
+            <Link href="/">Home</Link>
+          </li>
+          <li>
+            <Link href="/featured">Featured</Link>
+          </li>
         </ul>
       </nav>
       <main className="mx-10">{page}</main>

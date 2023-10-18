@@ -3,7 +3,8 @@
   grid-template-areas:
     'img title'
     'img desc';
-  grid-template-columns: max-content auto;
+  grid-template-rows: max-content 1fr;
+  grid-template-columns: max-content 1fr;
 }
 
 .img {

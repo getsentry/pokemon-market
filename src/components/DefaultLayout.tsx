@@ -2,11 +2,13 @@ import FlagPicker from "@/components/FlagPicker";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { ReactElement } from "react";
-import { BsCart, BsShop } from "react-icons/bs";
+import {  BsShop } from "react-icons/bs";
 import cx from 'classnames';
+import ShoppingCartCount from "@/components/ShoppingCartCount";
+
 export function DefaultLayout(page: ReactElement) {
   const router = useRouter();
-  
+
   const {pathname} = router;
   return (
     <>
@@ -43,10 +45,7 @@ export function DefaultLayout(page: ReactElement) {
         </Link>
         <ul className="flex flex-grow justify-end">
           <li className="flex items-center gap-2 text-lg">
-            <button className="flex items-center gap-2 hover:bg-darkRed rounded-xl px-4 py-2">
-              <BsCart />
-              <span>Cart</span>
-            </button>
+            <ShoppingCartCount />
           </li>
         </ul>
       </header>

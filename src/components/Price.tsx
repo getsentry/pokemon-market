@@ -20,7 +20,7 @@ export default function Price({ amount }: Props) {
     {
       us: USD,
       gb: GBP,
-    }[get("locale", "uk") as string] ?? USD;
+    }[(get("locale") ?? 'us') as string] ?? USD;
 
   return <span>{formatter.format(amount)}</span>;
 }

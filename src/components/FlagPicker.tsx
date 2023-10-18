@@ -4,7 +4,7 @@ import getUnicodeFlagIcon from "country-flag-icons/unicode";
 export default function FlagPicker() {
   const { get, set } = useLocalstorage();
 
-  const selected = get("locale", "uk");
+  const selected = get("locale") ?? 'us';
   return (
     <select
       className="text-black font-normal p-1 rounded-md"

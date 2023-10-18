@@ -7,21 +7,19 @@ function useReadLocalStorage() {
     setValue(JSON.parse(localStorage.getItem("storage") ?? "{}"));
   }, []);
 
-  const get = useCallback(
-    (name: string, dflt: unknown) => {
-      return value[name] ?? dflt;
-    },
-    [value]
-  );
+  const get = useCallback((name: string) => value[name], [value]);
 
   const set = useCallback((name: string, value: unknown) => {
     if (typeof window !== "undefined") {
       const storage = JSON.parse(
         window.localStorage.getItem("storage") ?? "{}"
       );
-      storage[name] = value;
-      window.localStorage.setItem("storage", JSON.stringify(storage));
-      setValue(storage);
+      const newStorage = {
+        ...storage,
+        [name]: value,
+      };
+      window.localStorage.setItem("storage", JSON.stringify(newStorage));
+      setValue(newStorage);
     }
   }, []);
 

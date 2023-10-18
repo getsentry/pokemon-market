@@ -8,9 +8,14 @@ import cx from "classnames";
 import PokemonCardView from "@/components/PokemonCardView.module.css";
 import ImageViewer from "@/components/ImageViewer";
 import Price from "@/components/Price";
+import useShoppingCart from "@/components/useShoppingCard";
+import { useState } from "react";
 
 export default function PokemonName() {
   const router = useRouter();
+  const {addToCart} = useShoppingCart();
+  const [amount, setAmount] = useState(1);
+
   const { pokemonName } = router.query;
 
   const { data } = useQuery<ApiItemResult<Pokemon>>({
@@ -33,19 +38,33 @@ export default function PokemonName() {
             <span className={PokemonCardView.name}>{pokemon.name}</span>
           </h2>
         </div>
-        <div className={cx(Media.desc, "flex flex-col gap-4")}>
+        <form className={cx(Media.desc, "flex flex-col gap-4")} onSubmit={e => {
+          addToCart(pokemon.name, amount);
+          e.preventDefault();
+        }}>
           <span className={PokemonCardView.id}>#{pokemon.id}</span>
-          <span className="text-red text-2xl"><Price amount={20}/></span>
+          <span className="text-red text-2xl">
+            <Price amount={20} />
+          </span>
           <div>
             <label htmlFor="quantity" className="block">
               Quantity
             </label>
-            <input type="text" id="quantity" value="1" className="border p-2" />
+            <input
+              type="text"
+              id="quantity"
+              value={amount}
+              className="border p-2"
+              onChange={(e) => setAmount(Number(e.target.value))}
+            />
           </div>
-          <button className="bg-red text-white rounded-full hover:bg-darkRed p-4">
+          <button
+            className="bg-red text-white rounded-full hover:bg-darkRed p-4"
+            type="submit"
+          >
             Add to Cart
           </button>
-        </div>
+        </form>
       </div>
       {/* <pre>{JSON.stringify(pokemon, null, "\t")}</pre> */}
     </div>

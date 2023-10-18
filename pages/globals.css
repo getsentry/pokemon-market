@@ -2,9 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-ul, ol, li {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+ul,
+ol,
+li {
   display: block;
+  list-style: none;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  padding-inline-start: 0;
 }
+
+ul.raw,
+ol.raw {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+}
+
+ul.raw > li {
+  display: list-item;
+  list-style: disc;
+}
+ol.raw > li {
+  display: list-item;
+  list-style: decimal;
+}
+

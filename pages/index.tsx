@@ -27,7 +27,7 @@ export default function Home() {
 
   return (
     <div>
-      <ul className="grid grid-cols-4 gap-px bg-black p-px">
+      <ul className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-px bg-black p-px">
         {pokemonList?.map((pokemon) => (
           <CardItem key={pokemon.name} pokemon={pokemon} />
         ))}

@@ -7,6 +7,7 @@ import Media from "@/components/Media.module.css";
 import cx from "classnames";
 import PokemonCardView from "@/components/PokemonCardView.module.css";
 import ImageViewer from "@/components/ImageViewer";
+import Price from "@/components/Price";
 
 export default function PokemonName() {
   const router = useRouter();
@@ -34,7 +35,7 @@ export default function PokemonName() {
         </div>
         <div className={cx(Media.desc, "flex flex-col gap-4")}>
           <span className={PokemonCardView.id}>#{pokemon.id}</span>
-          <span className="text-red text-2xl">$20.00</span>
+          <span className="text-red text-2xl"><Price amount={20}/></span>
           <div>
             <label htmlFor="quantity" className="block">
               Quantity

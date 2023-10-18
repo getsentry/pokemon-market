@@ -4,6 +4,7 @@
 
 import * as Sentry from "@sentry/nextjs";
 import dsn from './sentry.shared.dsn';
+import { Feedback } from "@sentry-internal/feedback";
 
 
 Sentry.init({
@@ -28,5 +29,6 @@ Sentry.init({
       maskAllText: false,
       blockAllMedia: false,
     }),
+    new Feedback({}),
   ],
 });

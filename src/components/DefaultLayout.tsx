@@ -1,4 +1,3 @@
-import FeedbackWidget from "@/components/FeedbackWidget";
 import FlagPicker from "@/components/FlagPicker";
 import Link from "next/link";
 import { ReactElement } from "react";
@@ -7,7 +6,6 @@ import { BsCart, BsShop } from "react-icons/bs";
 export function DefaultLayout(page: ReactElement) {
   return (
     <>
-      <FeedbackWidget />
       <aside className="flex px-10 py-4 bg-darkRed text-white font-thin">
         <ul className="flex flex-grow gap-4">
           <li className="">About</li>

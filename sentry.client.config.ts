@@ -27,6 +27,12 @@ Sentry.init({
       // Additional Replay configuration goes in here, for example:
       maskAllText: false,
       blockAllMedia: false,
+      networkDetailAllowUrls: [window.location.origin],
+      networkDetailDenyUrls: [
+        window.location.origin + '/_next/*',
+        window.location.origin + '/monitoring',
+      ],
+      networkCaptureBodies: true,
     }),
     new Feedback({
       colorScheme: 'light',

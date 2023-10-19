@@ -10,20 +10,26 @@ import Link from "next/link";
 import cx from "classnames";
 import { range } from "@/utils/array/range";
 
-export default function Home() {
-  const cardCount = 151;
+const totalCardCount = 151;
+const maxPageSize = 10;
+const queries = range(0, 16).map((i) => ({
+  offset: maxPageSize * i,
+  limit: Math.min(maxPageSize * (i + 1), totalCardCount) - maxPageSize * i,
+}));
 
-  const { data } = useQuery<ApiListResult<Pokemon>>({
+export default function Home() {
+  const { data } = useQuery<ApiListResult<Pokemon>[]>({
     queryKey: ["/api/pokemon"],
-    queryFn: () => apiFetch("/api/pokemon", { limit: cardCount, offset: 0 }),
+    queryFn: () => Promise.all(queries.map((query) => apiFetch("/api/pokemon", query))),
     enabled: true,
   });
 
-  const pokemonList = data?.results;
+  const pokemonList = data?.flatMap(apiResult => apiResult.results);
+  console.log({pokemonList})
 
   const extraCardCount = pokemonList?.length
     ? 4 - (pokemonList.length % 4)
-    : cardCount;
+    : totalCardCount;
 
   return (
     <div>

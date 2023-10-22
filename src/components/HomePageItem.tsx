@@ -2,6 +2,7 @@ import type { Pokemon } from "pokenode-ts";
 import PokemonCardView from "@/components/PokemonCardView";
 import Link from "next/link";
 import useShoppingCart from "@/components/useShoppingCart";
+import PokemonPrice from "@/components/PokemonPrice";
 
 export default function HomePageItem({ pokemon }: { pokemon: Pokemon | null }) {
   const { addToCart } = useShoppingCart();
@@ -11,6 +12,7 @@ export default function HomePageItem({ pokemon }: { pokemon: Pokemon | null }) {
       {pokemon ? (
         <Link href={`/pokemon/${pokemon?.name}`} className="flex grow">
           <PokemonCardView pokemon={pokemon}>
+            <PokemonPrice pokemon={pokemon} size="sm" />
             <button
               title="Add this pokemon to your cart"
               type="submit"

@@ -17,7 +17,7 @@ export default function Home() {
                 pokemonName={pokemonName}
                 amount={amount}
                 onSubmit={() => {
-                  removeFromCart(index);
+                  removeFromCart(pokemonName);
                 }}
               />
             </li>

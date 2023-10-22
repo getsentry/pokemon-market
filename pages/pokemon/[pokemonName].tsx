@@ -55,7 +55,7 @@ export default function PokemonName() {
             </ol>
           </div>
 
-          <PokemonPrice pokemon={pokemon} />
+          <PokemonPrice pokemon={pokemon} size="lg" />
 
           <div>
             <label htmlFor="quantity" className="block">

@@ -5,14 +5,14 @@ export default function AuthButton() {
 
   return (
     <button
+      aria-label={isLoggedIn ? 'logout' : 'login'}
       className="sentry-mask"
       onClick={() => {
-        console.log("clicked!");
-        if (isLoggedIn) {
-          logout();
-        } else {
-          login("Secret user");
-        }
+        // if (isLoggedIn) {
+        //   logout();
+        // } else {
+        //   login("Secret user");
+        // }
       }}
     >
       <div className="hover:bg-red text-white px-2 py-1 rounded-md text-md block">

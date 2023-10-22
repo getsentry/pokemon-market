@@ -1,15 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 
-import type { Pokemon } from "pokenode-ts";
 import PokemonCardViewCss from "@/components/PokemonCardView.module.css";
 import Media from "@/components/Media.module.css";
 import cx from "classnames";
 import { ReactNode } from "react";
+import { ApiPokemon } from "@/types";
 
 interface Props {
   className?: string;
   children?: ReactNode;
-  pokemon: Pokemon;
+  pokemon: ApiPokemon;
 }
 
 export default function PokemonCardView({ className, children, pokemon }: Props) {

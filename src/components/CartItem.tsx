@@ -1,9 +1,9 @@
 import { BsFillTrash3Fill } from "react-icons/bs";
 import { useQuery } from "@tanstack/react-query";
 import apiFetch from "@/components/apiFetch";
-import type { Pokemon } from "pokenode-ts";
-import { ApiItemResult } from "@/api/jsonItem";
 import PokemonCardView from "@/components/PokemonCardView";
+import type { ApiItemResult } from "@/api/jsonItem";
+import type { SinglePokemonResponse } from "@/types";
 
 export default function CartItem({
   pokemonName,
@@ -14,16 +14,21 @@ export default function CartItem({
   amount: number;
   onSubmit: () => void;
 }) {
-  const { data } = useQuery<ApiItemResult<Pokemon>>({
+  const { data } = useQuery<ApiItemResult<SinglePokemonResponse>>({
     queryKey: ["/api/pokemon", pokemonName],
     queryFn: () => apiFetch(`/api/pokemon/${pokemonName}`, {}),
     enabled: Boolean(pokemonName),
   });
-  const pokemon = data?.result;
 
-  if (!pokemon) {
+  if (
+    !data?.result ||
+    !data.result.pokemon ||
+    !data.result.species ||
+    !data.result.evolution
+  ) {
     return null;
   }
+  const { pokemon, species, evolution } = data.result;
 
   return (
     <form

@@ -1,9 +1,9 @@
+import { range } from "@/utils/array/range";
 import { useQuery } from "@tanstack/react-query";
 import apiFetch from "@/components/apiFetch";
+import PokemonListItem from "@/components/HomePageItem";
 import type { ApiListResult } from "@/api/jsonList";
-import type { Pokemon } from "pokenode-ts";
-import { range } from "@/utils/array/range";
-import HomePageItem from "@/components/HomePageItem";
+import type { ListPokemonResponse } from "@/types";
 
 const totalCardCount = 151;
 const maxPageSize = 10;
@@ -13,9 +13,10 @@ const queries = range(0, 16).map((i) => ({
 }));
 
 export default function Home() {
-  const { data } = useQuery<ApiListResult<null | Pokemon>[]>({
+  const { data } = useQuery<Array<ApiListResult<ListPokemonResponse>>>({
     queryKey: ["/api/pokemon"],
-    queryFn: () => Promise.all(queries.map((query) => apiFetch("/api/pokemon", query))),
+    queryFn: () =>
+      Promise.all(queries.map((query) => apiFetch("/api/pokemon", query))),
     enabled: true,
   });
 
@@ -35,10 +36,12 @@ export default function Home() {
     <div>
       <ul className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-px bg-black p-px">
         {pokemonList?.map((pokemon, index) => (
-          <HomePageItem
-            key={pokemon?.name ?? "missing-" + index}
-            pokemon={pokemon}
-          />
+          <li
+            key={pokemon.pokemon?.name ?? "missing-" + index}
+            className={"flex bg-white hover:bg-hover"}
+          >
+            <PokemonListItem pokemon={pokemon.pokemon} />
+          </li>
         ))}
         <li
           key={`extra`}

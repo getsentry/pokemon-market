@@ -1,7 +1,7 @@
-import type { NextApiRequest } from "next";
-import type { Cursor } from "@/api/validators/pagination";
 import endpoint from '@/api/endpoint';
 import getCurrentUrl from "@/api/getCurrentUrl";
+import type { Cursor } from "@/api/validators/pagination";
+import type { NextApiRequest } from "next";
 
 type OffsetPage = {
   offset: number;
@@ -9,19 +9,19 @@ type OffsetPage = {
   url: string;
 };
 
-export interface ApiListResult<T> {
+export interface ApiListResult<T extends Array<unknown>> {
   count: number,
   next: null | OffsetPage;
   previous: null | OffsetPage;
-  results: T[];
+  results: T;
 }
 
-export default function jsonList<T>(
+export default function jsonList<D, S extends Array<unknown>>(
   req: NextApiRequest,
   cursor: Cursor,
-  results: T[],
+  data: D[],
   count: number,
-  serializer: (value: T, index: number, arr: T[]) => unknown, 
+  serializer: (value: D, index: number, arr: D[]) => S[number], 
 ) {
   const url = getCurrentUrl(req);
 
@@ -29,7 +29,7 @@ export default function jsonList<T>(
   const next = offset + limit >= count ? null : offset + limit;
   const prev = offset - limit < 0 ? null : offset - limit;
 
-  const serialized = results.map(serializer);
+  const serialized = data.map(serializer);
 
   return {
     count,

@@ -4,6 +4,8 @@ import pagination from "@/api/validators/pagination";
 import type { NextApiRequest } from "next";
 import serializePokemon from "@/api/serializers/pokemon";
 import respondWith from "@/api/respondWith";
+import { ListPokemonResponse } from "@/types";
+import { Pokemon } from "pokenode-ts";
 
 const FEATURED = [
   'pikachu',
@@ -12,6 +14,8 @@ const FEATURED = [
   'mewtwo',
   'ash ketchum',
 ];
+
+type Data = (Pokemon | null);
 
 export default respondWith(async function ApiPokemonFeatured(req: NextApiRequest) {  
   const cursor = pagination(req, {
@@ -23,5 +27,5 @@ export default respondWith(async function ApiPokemonFeatured(req: NextApiRequest
   const results = await genListPokemonByName(FEATURED);
   const pokemon = results.map(result => result.status === 'fulfilled' ? result.value : null);
 
-  return jsonList(req, cursor, pokemon, count, serializePokemon);
+  return jsonList<Data, ListPokemonResponse>(req, cursor, pokemon, count, serializePokemon);
 });

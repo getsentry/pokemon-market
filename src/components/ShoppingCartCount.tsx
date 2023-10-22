@@ -13,7 +13,7 @@ export default function ShoppingCartCount() {
   if (cart.length) {
     const count = cart.reduce((sum, [,n]) => sum + n, 0);
     return (
-      <Link
+      <Link 
         aria-label="View Cart"
         title="View Cart"
         href="/cart"

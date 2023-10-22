@@ -1,15 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 
-import type { Pokemon } from "pokenode-ts";
-import cx from "classnames";
 import { useState } from "react";
+import cx from "classnames";
+import type { ApiPokemon } from "@/types";
 
 export default function ImageViewer({
   className,
   pokemon,
 }: {
   className?: string;
-  pokemon: Pokemon;
+  pokemon: ApiPokemon;
 }) {
   const [img, setImg] = useState<"front_default" | "back_default">(
     "front_default"

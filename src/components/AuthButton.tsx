@@ -8,11 +8,11 @@ export default function AuthButton() {
       aria-label={isLoggedIn ? 'logout' : 'login'}
       className="sentry-mask"
       onClick={() => {
-        // if (isLoggedIn) {
-        //   logout();
-        // } else {
-        //   login("Secret user");
-        // }
+        if (isLoggedIn) {
+          logout();
+        } else {
+          login("Secret user");
+        }
       }}
     >
       <div className="hover:bg-red text-white px-2 py-1 rounded-md text-md block">

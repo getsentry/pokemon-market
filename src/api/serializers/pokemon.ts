@@ -5,6 +5,6 @@ export default function serializePokemon(pokemon: Pokemon | null) {
     return null;
   }
 
-  const {id, moves, name, sprites: {back_default, front_default}, types} = pokemon;
-  return {id, name, sprites: {back_default, front_default}, types, moves};
+  const {id, name, sprites: {back_default, front_default}, types} = pokemon;
+  return {id, name, sprites: {back_default, front_default}, types};
 }

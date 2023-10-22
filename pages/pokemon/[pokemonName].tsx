@@ -1,15 +1,15 @@
+import { SinglePokemonResponse } from "@/types";
 import { useQuery } from "@tanstack/react-query";
-import apiFetch from "@/components/apiFetch";
-import type { Pokemon } from "pokenode-ts";
 import { useRouter } from "next/router";
-import type { ApiItemResult } from "@/api/jsonItem";
-import Media from "@/components/Media.module.css";
-import cx from "classnames";
-import PokemonCardView from "@/components/PokemonCardView.module.css";
-import ImageViewer from "@/components/ImageViewer";
-import useShoppingCart from "@/components/useShoppingCart";
 import { useState } from "react";
+import apiFetch from "@/components/apiFetch";
+import cx from "classnames";
+import ImageViewer from "@/components/ImageViewer";
+import Media from "@/components/Media.module.css";
+import PokemonCardView from "@/components/PokemonCardView.module.css";
 import PokemonPrice from "@/components/PokemonPrice";
+import type { ApiItemResult } from "@/api/jsonItem";
+import useShoppingCart from "@/components/useShoppingCart";
 
 export default function PokemonName() {
   const router = useRouter();
@@ -18,16 +18,16 @@ export default function PokemonName() {
 
   const { pokemonName } = router.query;
 
-  const { data } = useQuery<ApiItemResult<Pokemon>>({
+  const { data } = useQuery<ApiItemResult<SinglePokemonResponse>>({
     queryKey: ["/api/pokemon", pokemonName],
     queryFn: () => apiFetch(`/api/pokemon/${pokemonName}`, {}),
     enabled: Boolean(pokemonName),
   });
 
-  const pokemon = data?.result;
-  if (!pokemon) {
+  if (!data?.result || !data.result.pokemon || !data.result.species || !data.result.evolution) {
     return null;
   }
+  const {pokemon, species, evolution} = data.result;
 
   return (
     <div className="m-auto max-w-screen-lg">

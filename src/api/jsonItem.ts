@@ -1,15 +1,15 @@
 import type { NextApiRequest } from "next";
 
-export interface ApiItemResult<T> {
-  result: T;
+export interface ApiItemResult<S> {
+  result: S;
 }
 
-export default function jsonItem<T>(
+export default function jsonItem<D, S = unknown>(
   req: NextApiRequest,
-  result: T,
-  serializer: (value: T, index: number, arr: T[]) => unknown, 
+  data: D,
+  serializer: (value: D, index: number, arr: D[]) => S, 
 ) {
-  const serialized = serializer(result, 0, [result])
+  const serialized = serializer(data, 0, [data])
 
   return {
     result: serialized,

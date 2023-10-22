@@ -1,9 +1,9 @@
-import Price from "@/components/Price";
-import type { Pokemon } from "pokenode-ts";
 import cx from 'classnames';
+import Price from "@/components/Price";
+import type { ApiPokemon } from "@/types";
 
 interface Props {
-  pokemon: Pokemon;
+  pokemon: ApiPokemon;
   size: 'sm' | 'lg';
 }
 

@@ -1,8 +1,8 @@
 import type { PokemonSpecies } from "pokenode-ts";
 
-export default function serializeSpecies(species: PokemonSpecies | null) {
+export default function serializeSpecies(species: PokemonSpecies | undefined) {
   if (!species) {
-    return null;
+    return undefined;
   }
 
   const {flavor_text_entries, evolves_from_species, id, name} = species;

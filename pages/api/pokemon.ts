@@ -10,7 +10,7 @@ import serializeSpecies from "@/api/serializers/species";
 import type { ListPokemonResponse } from "@/types";
 import type { NextApiRequest } from "next";
 
-type Data = Awaited<ReturnType<typeof genPokemonByName>>;
+type Data = null | Awaited<ReturnType<typeof genPokemonByName>>;
 
 export default respondWith(async function ApiPokemon(req: NextApiRequest) { 
   const cursor = pagination(req, {
@@ -23,9 +23,9 @@ export default respondWith(async function ApiPokemon(req: NextApiRequest) {
   const results = await genListPokemon(cursor);
   const data = results.map(result => result.status === 'fulfilled' ? result.value : null);
   
-  return jsonList<Data, ListPokemonResponse>(req, cursor, data, count, ({pokemon, species, evolution}) => ({
-    pokemon: serializePokemon(pokemon),
-    species: serializeSpecies(species),
-    evolution: serializeEvolution(evolution),
+  return jsonList<Data, ListPokemonResponse>(req, cursor, data, count, (data) => ({
+    pokemon: serializePokemon(data?.pokemon),
+    species: serializeSpecies(data?.species),
+    evolution: serializeEvolution(data?.evolution),
   }));
 });

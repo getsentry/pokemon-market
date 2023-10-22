@@ -1,8 +1,8 @@
 import type { Pokemon } from "pokenode-ts";
 
-export default function serializePokemon(pokemon: Pokemon | null) {
+export default function serializePokemon(pokemon: Pokemon | undefined) {
   if (!pokemon) {
-    return null;
+    return undefined;
   }
 
   const {id, name, sprites: {back_default, front_default}, types} = pokemon;

@@ -1,8 +1,8 @@
 import type { EvolutionChain } from "pokenode-ts";
 
-export default function serializeEvolution(chain: EvolutionChain | null) {
+export default function serializeEvolution(chain: EvolutionChain | undefined) {
   if (!chain) {
-    return null;
+    return undefined;
   }
 
   return chain;

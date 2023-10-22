@@ -1,8 +1,7 @@
-import type { Pokemon } from "pokenode-ts";
-import mainClient from "@/pokemon/apiClient";
+import genPokemonByName from "@/pokemon/genPokemonByName";
 
 export default function genListPokemonByName(
   names: string[]
-): Promise<PromiseSettledResult<Pokemon>[]> {
-  return Promise.allSettled(names.map(name => mainClient().pokemon.getPokemonByName(name)));
+) {
+  return Promise.allSettled(names.map(name => genPokemonByName(name)));
 }

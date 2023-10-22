@@ -7,9 +7,9 @@ import Media from "@/components/Media.module.css";
 import cx from "classnames";
 import PokemonCardView from "@/components/PokemonCardView.module.css";
 import ImageViewer from "@/components/ImageViewer";
-import Price from "@/components/Price";
 import useShoppingCart from "@/components/useShoppingCart";
 import { useState } from "react";
+import PokemonPrice from "@/components/PokemonPrice";
 
 export default function PokemonName() {
   const router = useRouter();
@@ -31,7 +31,7 @@ export default function PokemonName() {
 
   return (
     <div className="m-auto max-w-screen-lg">
-      <div className={cx(Media.layout, "gap-10 rounded-xl")}>
+      <div className={cx(Media.layout, "gap-x-10 gap-y-6 rounded-xl")}>
         <ImageViewer className={Media.img} pokemon={pokemon} />
         <div className={Media.title}>
           <h2 className={PokemonCardView.title}>
@@ -46,9 +46,17 @@ export default function PokemonName() {
             e.preventDefault();
           }}
         >
-          <span className="text-red text-2xl">
-            <Price amount={20} />
-          </span>
+          <div>
+            <h3>Type:</h3>
+            <ol className="flex flex-col raw mt-0">
+              {pokemon.types.map(({ type }) => (
+                <li key={type.name}>{type.name}</li>
+              ))}
+            </ol>
+          </div>
+
+          <PokemonPrice pokemon={pokemon} />
+
           <div>
             <label htmlFor="quantity" className="block">
               Quantity
@@ -61,6 +69,7 @@ export default function PokemonName() {
               onChange={(e) => setAmount(Number(e.target.value))}
             />
           </div>
+          
           <button type="submit" title="Add this pokemon to your cart">
             <div className="bg-red text-white rounded-full hover:bg-darkRed p-4">
               Add to Cart

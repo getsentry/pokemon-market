@@ -5,6 +5,7 @@ import { ReactElement } from "react";
 import {  BsShop } from "react-icons/bs";
 import cx from 'classnames';
 import ShoppingCartCount from "@/components/ShoppingCartCount";
+import AuthButton from "@/components/AuthButton";
 
 export function DefaultLayout(page: ReactElement) {
   const router = useRouter();
@@ -32,9 +33,7 @@ export function DefaultLayout(page: ReactElement) {
             <FlagPicker />
           </li>
           <li>
-            <button className="hover:bg-red text-white px-2 py-1 rounded-md text-md block">
-              Log In
-            </button>
+            <AuthButton />
           </li>
         </ul>
       </aside>
@@ -42,7 +41,7 @@ export function DefaultLayout(page: ReactElement) {
         <Link href="/" title="Go to PokeMart homepage">
           <div className="hover:bg-darkRed rounded-xl px-4 py-2">
             <h1 className="flex flex-grow gap-4 items-center text-3xl font-semibold">
-              <BsShop /> Pokemart
+              <BsShop /> Pokeart
             </h1>
           </div>
         </Link>

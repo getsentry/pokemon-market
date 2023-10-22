@@ -14,8 +14,8 @@ li {
   padding-inline-start: 0;
 }
 
-ul.raw,
-ol.raw {
+ul:where(.raw),
+ol:where(.raw) {
   display: block;
   margin-block-start: 1em;
   margin-block-end: 1em;
@@ -24,11 +24,11 @@ ol.raw {
   padding-inline-start: 40px;
 }
 
-ul.raw > li {
+ul:where(.raw) > li {
   display: list-item;
   list-style: disc;
 }
-ol.raw > li {
+ol:where(.raw) > li {
   display: list-item;
   list-style: decimal;
 }

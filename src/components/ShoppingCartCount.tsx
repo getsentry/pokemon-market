@@ -1,13 +1,23 @@
 import { BsCart } from "react-icons/bs";
 import useShoppingCart from "@/components/useShoppingCart";
 import Link from "next/link";
+import cx from "classnames";
+import { useRouter } from "next/router";
 
 export default function ShoppingCartCount() {
+  const router = useRouter();
+  const { pathname } = router;
+
   const { cart } = useShoppingCart();
 
   if (cart.length) {
     return (
-      <Link aria-label="View Cart" title="View Cart" href="/cart">
+      <Link
+        aria-label="View Cart"
+        title="View Cart"
+        href="/cart"
+        className={cx({ underline: pathname === "/cart" })}
+      >
         <div className="flex items-center gap-2 hover:bg-darkRed rounded-xl px-4 py-2">
           <BsCart />
           <span>{cart.length} items</span>

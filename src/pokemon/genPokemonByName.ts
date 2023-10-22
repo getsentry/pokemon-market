@@ -4,5 +4,5 @@ import pokemonClient from "@/pokemon/pokemonClient";
 export default function genPokemonByName(
   name: string,
 ): Promise<Pokemon> {
-  return pokemonClient().getPokemonByName(name);
+  return pokemonClient().getPokemonByName(name)
 }

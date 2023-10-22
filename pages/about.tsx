@@ -6,8 +6,8 @@ export default function About() {
       <h1 className="text-2xl mt-4">About The Pokemart</h1>
       <p>
         This Pokemart app is an example Next.JS website that simulates a
-        storefront for Pokemon. It is instrumented with the Sentry SDK
-        featuring Session Replay, Feedback, and Distributed Tracing.
+        storefront for Pokemon. It is instrumented with the Sentry SDK featuring
+        Session Replay, Feedback, and Distributed Tracing.
       </p>
       <h1 className="text-2xl mt-4">Features</h1>
       <p>
@@ -16,11 +16,15 @@ export default function About() {
       </p>
       <ul className="raw">
         <li>
-          Session Replay. Visit{" "}
-          <Link href="https://sentry-test.sentry.io/replays/?project=4506072436572160&statsPeriod=14d">
+          <strong>Session Replay:</strong> Visit{" "}
+          <Link href="https://sentry-test.sentry.io/replays/?project=4506072436572160&statsPeriod=14d" className="text-blue underline">
             sentry-test/pokemart
           </Link>{" "}
           to see replays.
+        </li>
+        <li>
+          <strong>Dead Clicks:</strong> Click on the View Cart link when there
+          are &quot;0 Items&quot; will result in a dead click.
         </li>
       </ul>
     </div>

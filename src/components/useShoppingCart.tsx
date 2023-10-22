@@ -12,6 +12,7 @@ export default function useShoppingCart() {
 
   const addToCart = useCallback(
     (name: string, amount: number) => {
+      console.log('adding to cart', {name, amount}, rawCart);
       rawCart.push([name, amount]);
       set(KEY, [...rawCart]);
     },
@@ -20,6 +21,7 @@ export default function useShoppingCart() {
 
   const removeFromCart = useCallback(
     (index: number) => {
+      console.log('removing from card', {index}, rawCart);
       rawCart.splice(index, 1);
       set(KEY, rawCart);
     },

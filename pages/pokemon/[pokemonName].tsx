@@ -8,7 +8,7 @@ import cx from "classnames";
 import PokemonCardView from "@/components/PokemonCardView.module.css";
 import ImageViewer from "@/components/ImageViewer";
 import Price from "@/components/Price";
-import useShoppingCart from "@/components/useShoppingCard";
+import useShoppingCart from "@/components/useShoppingCart";
 import { useState } from "react";
 
 export default function PokemonName() {
@@ -35,14 +35,17 @@ export default function PokemonName() {
         <ImageViewer className={Media.img} pokemon={pokemon} />
         <div className={Media.title}>
           <h2 className={PokemonCardView.title}>
+            <span className={PokemonCardView.id}>#{pokemon.id}</span>
             <span className={PokemonCardView.name}>{pokemon.name}</span>
           </h2>
         </div>
-        <form className={cx(Media.desc, "flex flex-col gap-4")} onSubmit={e => {
-          addToCart(pokemon.name, amount);
-          e.preventDefault();
-        }}>
-          <span className={PokemonCardView.id}>#{pokemon.id}</span>
+        <form
+          className={cx(Media.desc, "flex flex-col gap-4")}
+          onSubmit={(e) => {
+            addToCart(pokemon.name, amount);
+            e.preventDefault();
+          }}
+        >
           <span className="text-red text-2xl">
             <Price amount={20} />
           </span>
@@ -58,11 +61,10 @@ export default function PokemonName() {
               onChange={(e) => setAmount(Number(e.target.value))}
             />
           </div>
-          <button
-            className="bg-red text-white rounded-full hover:bg-darkRed p-4"
-            type="submit"
-          >
-            Add to Cart
+          <button type="submit" title="Add this pokemon to your cart">
+            <div className="bg-red text-white rounded-full hover:bg-darkRed p-4">
+              Add to Cart
+            </div>
           </button>
         </form>
       </div>

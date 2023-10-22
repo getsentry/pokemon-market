@@ -14,6 +14,7 @@ module.exports = {
       hover: "#DDD",
       black: "#000",
       border: "rgb(177,177,177)",
+      blue: 'blue',
     },
   },
   plugins: [],

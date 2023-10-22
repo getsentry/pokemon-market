@@ -1,24 +1,31 @@
 import Link from "next/link";
 import PokemonCardView from "@/components/PokemonCardView";
 import PokemonPrice from "@/components/PokemonPrice";
-import type { ApiPokemon } from "@/types";
+import type { ApiEvolution, ApiPokemon, ApiSpecies } from "@/types";
 import useShoppingCart from "@/components/useShoppingCart";
 
 interface Props {
-  pokemon: ApiPokemon | null;
+  pokemon: ApiPokemon | undefined;
+  species: ApiSpecies | undefined;
+  evolution: ApiEvolution | undefined;
 }
 
-export default function HomePageItem({ pokemon }: Props) {
+export default function HomePageItem({ pokemon, species, evolution }: Props) {
   const { addToCart } = useShoppingCart();
 
-  if (!pokemon) {
+  if (!pokemon || !species || !evolution) {
     return null;
   }
 
   return (
     <Link href={`/pokemon/${pokemon?.name}`} className="flex grow">
       <PokemonCardView pokemon={pokemon}>
-        <PokemonPrice pokemon={pokemon} size="sm" />
+        <PokemonPrice
+          pokemon={pokemon}
+          species={species}
+          evolution={evolution}
+          size="sm"
+        />
         <button
           title="Add this pokemon to your cart"
           type="submit"

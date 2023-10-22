@@ -23,11 +23,11 @@ export default function PokemonName() {
     queryFn: () => apiFetch(`/api/pokemon/${pokemonName}`, {}),
     enabled: Boolean(pokemonName),
   });
-
-  if (!data?.result || !data.result.pokemon || !data.result.species || !data.result.evolution) {
+  
+  const { pokemon, species, evolution } = data?.result ?? {};
+  if (!pokemon || !species || !evolution) {
     return null;
   }
-  const {pokemon, species, evolution} = data.result;
 
   return (
     <div className="m-auto max-w-screen-lg">
@@ -55,7 +55,12 @@ export default function PokemonName() {
             </ol>
           </div>
 
-          <PokemonPrice pokemon={pokemon} size="lg" />
+          <PokemonPrice
+            pokemon={pokemon}
+            species={species}
+            evolution={evolution}
+            size="lg"
+          />
 
           <div>
             <label htmlFor="quantity" className="block">
@@ -69,7 +74,7 @@ export default function PokemonName() {
               onChange={(e) => setAmount(Number(e.target.value))}
             />
           </div>
-          
+
           <button type="submit" title="Add this pokemon to your cart">
             <div className="bg-red text-white rounded-full hover:bg-darkRed p-4">
               Add to Cart

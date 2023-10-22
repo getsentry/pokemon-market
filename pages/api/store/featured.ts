@@ -8,6 +8,7 @@ import serializePokemon from "@/api/serializers/pokemon";
 import serializeSpecies from "@/api/serializers/species";
 import type { ListPokemonResponse } from "@/types";
 import type { NextApiRequest } from "next";
+import unpackSettledResults from "@/api/serializers/unpackSettledResults";
 
 const FEATURED = [
   'pikachu',
@@ -16,7 +17,7 @@ const FEATURED = [
   'mewtwo',
 ];
 
-type Data = null | Awaited<ReturnType<typeof genPokemonByName>>;
+type Data = undefined | Awaited<ReturnType<typeof genPokemonByName>>;
 
 export default respondWith(async function ApiPokemonFeatured(req: NextApiRequest) {  
   const cursor = pagination(req, {
@@ -26,7 +27,7 @@ export default respondWith(async function ApiPokemonFeatured(req: NextApiRequest
 
   const count = FEATURED.length;
   const results = await genListPokemonByName(FEATURED);
-  const data = results.map(result => result.status === 'fulfilled' ? result.value : null);
+  const data = results.map(unpackSettledResults);
 
   return jsonList<Data, ListPokemonResponse>(req, cursor, data, count, (data) => ({
     pokemon: serializePokemon(data?.pokemon),

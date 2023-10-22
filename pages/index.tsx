@@ -35,12 +35,12 @@ export default function Home() {
   return (
     <div>
       <ul className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-px bg-black p-px">
-        {pokemonList?.map((pokemon, index) => (
+        {pokemonList?.map(({pokemon, species, evolution}, index) => (
           <li
-            key={pokemon.pokemon?.name ?? "missing-" + index}
+            key={pokemon?.name ?? "missing-" + index}
             className={"flex bg-white hover:bg-hover"}
           >
-            <PokemonListItem pokemon={pokemon.pokemon} />
+            <PokemonListItem pokemon={pokemon} species={species} evolution={evolution} />
           </li>
         ))}
         <li

@@ -1,15 +1,18 @@
 import cx from 'classnames';
 import Price from "@/components/Price";
-import type { ApiPokemon } from "@/types";
+import type { ApiEvolution, ApiPokemon, ApiSpecies } from "@/types";
 
 interface Props {
+  className?: string;
   pokemon: ApiPokemon;
-  size: 'sm' | 'lg';
+  species: ApiSpecies;
+  evolution: ApiEvolution;
+  size: "sm" | "lg";
 }
 
-export default function PokemonPrice({ pokemon, size }: Props) {
+export default function PokemonPrice({ className, pokemon, size }: Props) {
   return (
-    <div className={cx("text-red", {
+    <div className={cx(className, "text-red", {
       "text-4xl": size === "lg",
       "text-xl": size === "sm",
     })}>

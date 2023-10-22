@@ -3,11 +3,13 @@ import serializePokemon from "@/api/serializers/pokemon"
 import serializeSpecies from "@/api/serializers/species"
 
 export type ApiPokemon = NonNullable<ReturnType<typeof serializePokemon>>;
+export type ApiSpecies = NonNullable<ReturnType<typeof serializeSpecies>>;
+export type ApiEvolution = NonNullable<ReturnType<typeof serializeEvolution>>;
 
 export type SinglePokemonResponse = {
-  pokemon: ReturnType<typeof serializePokemon>,
-  species: ReturnType<typeof serializeSpecies>,
-  evolution: ReturnType<typeof serializeEvolution>,
+  pokemon: ApiPokemon | undefined,
+  species: ApiSpecies | undefined,
+  evolution: ApiEvolution | undefined,
 }
 
 export type ListPokemonResponse = SinglePokemonResponse[];

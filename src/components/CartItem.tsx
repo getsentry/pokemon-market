@@ -4,16 +4,19 @@ import apiFetch from "@/components/apiFetch";
 import PokemonCardView from "@/components/PokemonCardView";
 import type { ApiItemResult } from "@/api/jsonItem";
 import type { SinglePokemonResponse } from "@/types";
+import PokemonPrice from "./PokemonPrice";
+
+interface Props {
+  pokemonName: string;
+  amount: number;
+  onSubmit: () => void;
+}
 
 export default function CartItem({
   pokemonName,
   amount,
   onSubmit,
-}: {
-  pokemonName: string;
-  amount: number;
-  onSubmit: () => void;
-}) {
+}: Props) {
   const { data } = useQuery<ApiItemResult<SinglePokemonResponse>>({
     queryKey: ["/api/pokemon", pokemonName],
     queryFn: () => apiFetch(`/api/pokemon/${pokemonName}`, {}),
@@ -39,9 +42,22 @@ export default function CartItem({
       className="contents"
     >
       <PokemonCardView className="bg-white" pokemon={pokemon} />
-      <div className="flex gap-4 flex-col bg-white p-4">
-        <div>
-          <label htmlFor="quantity" className="block">
+      <div className="flex flex-col items-start bg-white py-4 px-4">
+        <div
+          className="grid gap-4 items-center"
+          style={{ gridTemplateColumns: "max-content 1fr" }}
+        >
+          <label htmlFor="quantity" className="text-right">
+            Price
+          </label>
+          <PokemonPrice
+            className="inline"
+            pokemon={pokemon}
+            species={species}
+            evolution={evolution}
+            size="lg"
+          />
+          <label htmlFor="quantity" className="text-right">
             Quantity
           </label>
           <input
@@ -49,7 +65,7 @@ export default function CartItem({
             type="text"
             id="quantity"
             value={amount}
-            className="border p-2 text-border"
+            className="border p-2 text-border inline"
           />
         </div>
       </div>

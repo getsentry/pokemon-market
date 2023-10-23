@@ -1,9 +1,8 @@
-import useLocalstorage from "@/components/useLocalstorage";
-
 const USD = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
 });
+
 const GBP = new Intl.NumberFormat("en-GB", {
   style: "currency",
   currency: "GBP",
@@ -11,16 +10,15 @@ const GBP = new Intl.NumberFormat("en-GB", {
 
 interface Props {
   amount: number;
+  locale: "us" | "gb" | string;
 }
 
-export default function Price({ amount }: Props) {
-  const { get } = useLocalstorage();
-
+export default function Price({ amount, locale }: Props) {
   const formatter =
     {
       us: USD,
       gb: GBP,
-    }[(get("locale") ?? 'us') as string] ?? USD;
+    }[locale] ?? USD;
 
   return <span>{formatter.format(amount)}</span>;
 }

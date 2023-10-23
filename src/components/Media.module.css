@@ -1,11 +1,24 @@
 .layout {
   display: grid;
   grid-template-areas:
-    'img title'
-    'img desc';
-  grid-template-rows: max-content 1fr;
-  grid-template-columns: max-content 1fr;
+    'img'
+    'title'
+    'desc';
+  grid-template-rows: max-content;
+  grid-template-columns: 1fr;
 }
+
+@media (min-width: 768px) {
+  .layout {
+    
+    grid-template-areas:
+      'img title'
+      'img desc';
+    grid-template-rows: max-content 1fr;
+    grid-template-columns: max-content 1fr;
+  }
+}
+
 
 .img {
   grid-area: img;

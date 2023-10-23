@@ -11,6 +11,7 @@ import PokemonPrice from "@/components/PokemonPrice";
 import type { ApiItemResult } from "@/api/jsonItem";
 import useShoppingCart from "@/components/useShoppingCart";
 import Head from "next/head";
+import first from "@/utils/array/first";
 
 export default function PokemonName() {
   const router = useRouter();
@@ -23,11 +24,16 @@ export default function PokemonName() {
     queryKey: ["/api/pokemon", pokemonName],
     queryFn: () => apiFetch(`/api/pokemon/${pokemonName}`, {}),
     enabled: Boolean(pokemonName),
+    cacheTime: ["slowpoke", "slowbro"].includes(first(pokemonName ?? '')) ? 0 : undefined,
   });
   
   const { pokemon, species, evolution } = data?.result ?? {};
   if (!pokemon || !species || !evolution) {
-    return null;
+    return (
+      <div className="m-auto max-w-screen-lg">
+        Loading...
+      </div>
+    );
   }
 
   return (

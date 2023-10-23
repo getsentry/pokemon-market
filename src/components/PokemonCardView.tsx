@@ -17,7 +17,7 @@ export default function PokemonCardView({ className, children, pokemon }: Props)
     <div className={cx(Media.layout, className, "grow", "gap-x-2", "p-4")}>
       <div className={Media.img}>
         <img
-          src={pokemon.sprites.front_default ?? undefined}
+          src={pokemon.sprites.artwork ?? undefined}
           alt={pokemon.name}
           className="h-24 w-24"
         />

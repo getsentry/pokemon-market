@@ -1,9 +1,8 @@
-import { ReactElement } from "react";
 import { useQuery } from "@tanstack/react-query";
 import apiFetch from "@/components/apiFetch";
+import PokemonList from "@/components/PokemonList";
 import type { ApiListResult } from "@/api/jsonList";
 import type { ListPokemonResponse } from "@/types";
-import PokemonList from "@/components/PokemonList";
 
 export default function Sale() {
   const { data } = useQuery<ApiListResult<ListPokemonResponse>>({

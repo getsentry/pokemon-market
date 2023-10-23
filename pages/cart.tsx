@@ -23,8 +23,8 @@ export default function Home() {
           ))}
         </ul>
         <div className="p-4 self-end">
-          <button type="submit" title="Checkout">
-            <div className="flex gap-2 items-center bg-red text-white rounded-full hover:bg-darkRed p-4">
+          <button type="submit" title="Checkout" disabled>
+            <div className="flex gap-2 items-center bg-border text-hover rounded-full p-4">
               Checkout
             </div>
           </button>

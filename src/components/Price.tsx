@@ -9,16 +9,17 @@ const GBP = new Intl.NumberFormat("en-GB", {
 });
 
 interface Props {
+  className?: string;
   amount: number;
   locale: "us" | "gb" | string;
 }
 
-export default function Price({ amount, locale }: Props) {
+export default function Price({ className, amount, locale }: Props) {
   const formatter =
     {
       us: USD,
       gb: GBP,
     }[locale] ?? USD;
 
-  return <span>{formatter.format(amount)}</span>;
+  return <span className={className}>{formatter.format(amount)}</span>;
 }

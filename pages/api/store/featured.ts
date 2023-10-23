@@ -1,3 +1,4 @@
+import { SALE } from "@/pokemon/getPrice";
 import genListPokemonByName from "@/pokemon/genListPokemonByName";
 import genPokemonByName from "@/pokemon/genPokemonByName";
 import jsonList from "@/api/jsonList";
@@ -10,23 +11,16 @@ import type { ListPokemonResponse } from "@/types";
 import type { NextApiRequest } from "next";
 import unpackSettledResults from "@/api/serializers/unpackSettledResults";
 
-const FEATURED = [
-  'pikachu',
-  'charizard',
-  'slowpoke',
-  'mewtwo',
-];
-
 type Data = undefined | Awaited<ReturnType<typeof genPokemonByName>>;
 
 export default respondWith(async function ApiPokemonFeatured(req: NextApiRequest) {  
   const cursor = pagination(req, {
     offset: 0,
-    limit: FEATURED.length,
+    limit: SALE.length,
   });
 
-  const count = FEATURED.length;
-  const results = await genListPokemonByName(FEATURED);
+  const count = SALE.length;
+  const results = await genListPokemonByName(SALE);
   const data = results.map(unpackSettledResults);
 
   return jsonList<Data, ListPokemonResponse>(req, cursor, data, count, (data) => ({

@@ -15,13 +15,44 @@ interface Props {
 export default function PokemonPrice({ className, size, pokemon, species, evolution }: Props) {
   const { get } = useLocalstorage();
   const locale = (get("locale") ?? 'us') as string;
-  const price = getPrice(locale, pokemon, species, evolution)
+  const {regularPrice, salePrice, isSale} = getPrice(locale, pokemon, species, evolution)
+
+  if (isSale) {
+    return (
+      <div
+        className={cx(className, "text-red", {
+          "text-4xl": size === "lg",
+          "text-xl": size === "sm",
+        })}
+      >
+        <div
+          className={cx(className, "text-black", {
+            "text-2xl": size === "lg",
+            "text-lg": size === "sm",
+          })}
+        >
+          <Price
+            amount={regularPrice}
+            locale={locale}
+            className="line-through	"
+          />
+        </div>
+        <Price amount={salePrice} locale={locale} />
+        <div className="italic">Great Savings!!!</div>
+      </div>
+    );
+  }
   return (
     <div className={cx(className, "text-red", {
       "text-4xl": size === "lg",
       "text-xl": size === "sm",
     })}>
-      <Price amount={price} locale={locale} />
+      {isSale
+        ? <div>
+            <Price amount={salePrice} locale={locale} className="line-through	" />
+            <Price amount={salePrice} locale={locale} />
+          </div>
+        : <Price amount={regularPrice} locale={locale} />}
     </div>
   );
 }

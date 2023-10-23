@@ -6,9 +6,9 @@ import apiFetch from "@/components/apiFetch";
 import Head from "next/head";
 import Header from "@/components/Header";
 import Nav from "@/components/Nav";
-import PokemonListItem from "@/components/HomePageItem";
 import type { ApiListResult } from "@/api/jsonList";
 import type { ListPokemonResponse } from "@/types";
+import PokemonList from "@/components/PokemonList";
 
 const totalCardCount = 151;
 const maxPageSize = 10;
@@ -45,37 +45,7 @@ export default function Home() {
     ) 
     : pokemonList;
 
-  const remainder = 4 - (filteredPokemonList.length % 4);
-  console.log({remainder});
-
-  return (
-    <div>
-      <ul className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-px bg-black p-px">
-        {filteredPokemonList?.map(({ pokemon, species, evolution }, index) => (
-          <li
-            key={pokemon?.name ?? "missing-" + index}
-            className={"flex bg-white hover:bg-hover"}
-          >
-            <PokemonListItem
-              pokemon={pokemon}
-              species={species}
-              evolution={evolution}
-            />
-          </li>
-        ))}
-        {remainder === 1 ? (
-          <li className="flex bg-white h-auto lg:col-start-2 lg:col-end-4 xl:col-start-4 xl:col-end-4" />
-        ) : null}
-        {remainder === 2 ? (
-          <li className="flex bg-white h-auto sm:hidden lg:flex lg:col-start-3 lg:col-end-4 xl:col-start-3 xl:col-end-5" />
-        ) : null}
-        {remainder === 3 ? (
-          <li className="flex bg-white h-auto lg:col-start-2 lg:col-end-4 xl:col-start-2 xl:col-end-5" />
-        ) : null}
-      </ul>
-      {/* <pre>{JSON.stringify(pokemonList, null, "\t")}</pre> */}
-    </div>
-  );
+  return <PokemonList pokemonList={filteredPokemonList} />;
 }
 
 function Layout({page}: {page: ReactElement}) {

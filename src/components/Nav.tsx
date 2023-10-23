@@ -26,14 +26,14 @@ export default function Nav({children}: Props) {
           </Link>
         </li>
         <li>
-          <Link href="/featured" title="See Featured Pokemon">
+          <Link href="/sale" title="On Sale">
             <div
               className={cx(
-                { underline: pathname === "/featured" },
+                { underline: pathname === "/sale" },
                 "hover:bg-hover px-4 py-2 rounded-md"
               )}
             >
-              Featured
+              On Sale
             </div>
           </Link>
         </li>

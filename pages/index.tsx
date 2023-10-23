@@ -21,8 +21,8 @@ export default function Home() {
   const router = useRouter();
   const { data } = useQuery<Array<ApiListResult<ListPokemonResponse>>>({
     queryKey: ["/api/pokemon"],
-    queryFn: () =>
-      Promise.all(queries.map((query) => apiFetch("/api/pokemon", query))),
+    queryFn: ({ queryKey }) =>
+      Promise.all(queries.map((query) => apiFetch(queryKey.join("/"), query))),
     enabled: true,
   });
 

@@ -8,7 +8,7 @@ import PokemonList from "@/components/PokemonList";
 export default function Sale() {
   const { data } = useQuery<ApiListResult<ListPokemonResponse>>({
     queryKey: ["/api/store/sale"],
-    queryFn: () => apiFetch("/api/store/sale"),
+    queryFn: ({ queryKey }) => apiFetch(queryKey.join('/')),
     enabled: true,
   });
 

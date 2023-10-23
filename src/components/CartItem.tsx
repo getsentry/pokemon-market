@@ -5,6 +5,7 @@ import PokemonCardView from "@/components/PokemonCardView";
 import type { ApiItemResult } from "@/api/jsonItem";
 import type { SinglePokemonResponse } from "@/types";
 import PokemonPrice from "./PokemonPrice";
+import { Fragment } from "react";
 
 interface Props {
   pokemonName: string;
@@ -19,7 +20,7 @@ export default function CartItem({
 }: Props) {
   const { data } = useQuery<ApiItemResult<SinglePokemonResponse>>({
     queryKey: ["/api/pokemon", pokemonName],
-    queryFn: () => apiFetch(`/api/pokemon/${pokemonName}`, {}),
+    queryFn: ({ queryKey }) => apiFetch(queryKey.join('/'), {}),
     enabled: Boolean(pokemonName),
   });
 
@@ -29,7 +30,15 @@ export default function CartItem({
     !data.result.species ||
     !data.result.evolution
   ) {
-    return null;
+    return (
+      <Fragment>
+        <div className="bg-white p-4">
+          <div className="h-24">Loading...</div>
+        </div>
+        <div className="bg-white" />
+        <div className="bg-white" />
+      </Fragment>
+    );
   }
   const { pokemon, species, evolution } = data.result;
 

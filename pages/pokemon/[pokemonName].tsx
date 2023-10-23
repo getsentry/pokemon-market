@@ -22,7 +22,7 @@ export default function PokemonName() {
 
   const { data } = useQuery<ApiItemResult<SinglePokemonResponse>>({
     queryKey: ["/api/pokemon", pokemonName],
-    queryFn: () => apiFetch(`/api/pokemon/${pokemonName}`, {}),
+    queryFn: ({ queryKey }) => apiFetch(queryKey.join('/'), {}),
     enabled: Boolean(pokemonName),
     cacheTime: ["slowpoke", "slowbro"].includes(first(pokemonName ?? '')) ? 0 : undefined,
   });

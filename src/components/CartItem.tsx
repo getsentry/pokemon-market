@@ -42,7 +42,7 @@ export default function CartItem({
       className="contents"
     >
       <PokemonCardView className="bg-white" pokemon={pokemon} />
-      <div className="flex flex-col items-start bg-white py-4 px-4">
+      <div className="flex flex-col items-start bg-white py-4 px-4 flex-grow">
         <div
           className="grid gap-4 items-center"
           style={{ gridTemplateColumns: "max-content 1fr" }}
@@ -65,7 +65,7 @@ export default function CartItem({
             type="text"
             id="quantity"
             value={amount}
-            className="border p-2 text-border inline"
+            className="border p-2 text-border inline w-28"
           />
         </div>
       </div>

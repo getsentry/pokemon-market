@@ -1,0 +1,9 @@
+.gridRow {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .gridRow {
+    grid-template-columns: max-content 1fr max-content;
+  }
+}

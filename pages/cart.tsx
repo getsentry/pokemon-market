@@ -1,5 +1,7 @@
 import useShoppingCart from "@/components/useShoppingCart";
 import CartItem from "@/components/CartItem";
+import CartItemCSS from '@/components/CartItem.module.css';
+import cx from 'classnames';
 
 export default function Home() {
   const { cart, removeFromCart } = useShoppingCart();
@@ -7,10 +9,7 @@ export default function Home() {
   if (cart.length) {
     return (
       <div className="m-auto max-w-screen-lg flex flex-col">
-        <ul
-          className="grid p-px gap-y-px bg-black"
-          style={{ gridTemplateColumns: "max-content 1fr max-content" }}
-        >
+        <ul className={cx(CartItemCSS.gridRow, "grid", "p-px", "gap-y-px", "bg-black", "grid-cols-1", "sm:grid-cols-3")}>
           {cart.map(([pokemonName, amount], index) => (
             <li key={`${pokemonName}-${amount}-${index}`} className="contents">
               <CartItem
@@ -37,5 +36,5 @@ export default function Home() {
     <div className="m-auto max-w-screen-lg flex flex-col">
       <p className="text-center italic">Your cart is empty</p>
     </div>
-  )
+  );
 }

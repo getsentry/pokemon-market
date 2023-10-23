@@ -13,7 +13,6 @@ export default async function genPokemonByName(
 
   const url = new URL(species.evolution_chain.url);
   const chainId = url.pathname.split('/').filter(Boolean).slice(-1)[0];
-  console.log(url, chainId)
   const evolution = await mainClient().evolution.getEvolutionChainById(Number(chainId));
 
   return {

@@ -10,6 +10,7 @@ import PokemonCardView from "@/components/PokemonCardView.module.css";
 import PokemonPrice from "@/components/PokemonPrice";
 import type { ApiItemResult } from "@/api/jsonItem";
 import useShoppingCart from "@/components/useShoppingCart";
+import Head from "next/head";
 
 export default function PokemonName() {
   const router = useRouter();
@@ -31,6 +32,9 @@ export default function PokemonName() {
 
   return (
     <div className="m-auto max-w-screen-lg">
+      <Head>
+        <title>Pokemart - {pokemon.name}</title>
+      </Head>
       <div className={cx(Media.layout, "gap-x-10 gap-y-6 rounded-xl")}>
         <ImageViewer className={Media.img} pokemon={pokemon} />
         <div className={Media.title}>

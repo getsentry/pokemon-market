@@ -7,10 +7,10 @@ import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
 import { DefaultLayout } from '@/components/DefaultLayout';
 import { LocalStorageContextProvider } from '@/components/LocalStorageProvider';
 
-type GetLayout = (page: ReactElement) => ReactNode
+type GetLayout = (props: {page: ReactElement}) => ReactNode
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
-  getLayout?: GetLayout;
+  Layout?: GetLayout;
 };
 
 type AppPropsWithLayout = AppProps & {
@@ -18,9 +18,9 @@ type AppPropsWithLayout = AppProps & {
 };
 
 export default function Layout({ Component, pageProps }: AppPropsWithLayout) {
-  const getLayout = Component.getLayout ?? DefaultLayout;
+  const Layout = Component.Layout ?? DefaultLayout;
 
-  return <AppProviders>{getLayout(<Component {...pageProps} />)}</AppProviders>;
+  return <AppProviders><Layout page={<Component {...pageProps} />} /></AppProviders>;
 }
 
 const queryClient = new QueryClient();

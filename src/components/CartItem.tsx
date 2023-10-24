@@ -11,16 +11,14 @@ import useShoppingCart from "@/components/useShoppingCart";
 interface Props {
   pokemonName: string;
   amount: number;
-  onSubmit: () => void;
 }
 
 export default function CartItem({
   pokemonName,
   amount,
-  onSubmit,
 }: Props) {
-  const {updateCartCount} = useShoppingCart();
-  
+  const { updateCartCount, removeFromCart } = useShoppingCart();
+
   const { data } = useQuery<ApiItemResult<SinglePokemonResponse>>({
     queryKey: ["/api/pokemon", pokemonName],
     queryFn: ({ queryKey }) => apiFetch(queryKey.join('/'), {}),
@@ -46,13 +44,7 @@ export default function CartItem({
   const { pokemon, species, evolution } = data.result;
 
   return (
-    <form
-      onSubmit={(e) => {
-        onSubmit();
-        e.preventDefault();
-      }}
-      className="contents"
-    >
+    <Fragment>
       <PokemonCardView className="bg-white" pokemon={pokemon} />
       <div className="flex flex-col items-start bg-white py-4 px-4 flex-grow">
         <div
@@ -67,7 +59,7 @@ export default function CartItem({
             pokemon={pokemon}
             species={species}
             evolution={evolution}
-            size="lg"
+            size="sm"
           />
           <label htmlFor="quantity" className="text-right">
             Quantity
@@ -84,12 +76,14 @@ export default function CartItem({
         </div>
       </div>
       <div className="flex place-items-center bg-white p-4">
-        <button type="submit" title="Remove this pokemon from your cart">
+        <button type="button" title="Remove this pokemon from your cart" onClick={e => {
+          removeFromCart(pokemon.name);
+        }}>
           <div className="flex gap-1 items-center bg-hover text-black rounded-full hover:text-black hover:bg-border p-2">
             <BsFillTrash3Fill /> Remove
           </div>
         </button>
       </div>
-    </form>
+    </Fragment>
   );
 }

@@ -21,5 +21,5 @@ export default function Price({ className, amount, locale }: Props) {
       gb: GBP,
     }[locale] ?? USD;
 
-  return <span className={className}>{formatter.format(amount)}</span>;
+  return <div className={className}>{formatter.format(amount)}</div>;
 }

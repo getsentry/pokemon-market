@@ -5,6 +5,7 @@ type Price = {
   regularPrice: number;
   salePrice: number;
   isSale: boolean;
+  hasStock: boolean,
 };
 
 const TYPE_MODIFIERS: Record<string, number> = {
@@ -23,10 +24,17 @@ const BOOST: Record<string, number> = {
 };
 
 export const SALE = [
-  'pikachu',
   'charizard',
+  'pikachu',
+  'jigglypuff',
+  'diglett',
   'slowpoke',
+  'snorlax',
   'mewtwo',
+];
+
+const OUT_OF_STOCK = [
+  'charizard',
 ];
 
 const OVERRIDE: Record<string, Record<string, Price>> = {
@@ -35,6 +43,7 @@ const OVERRIDE: Record<string, Record<string, Price>> = {
       regularPrice: 100,
       salePrice: 1000,
       isSale: true,
+      hasStock: true,
     },
   },
 };
@@ -51,6 +60,7 @@ export default function getPrice(locale: string, pokemon: ApiPokemon, species: A
   const boost = BOOST[pokemon.name] ?? 0;
   const tier = (evolutionStep * typeBonus) + boost;
   const isSale = SALE.includes(pokemon.name);
+  const hasStock = !OUT_OF_STOCK.includes(pokemon.name);
 
   switch (locale) {
     case 'gb':
@@ -58,6 +68,7 @@ export default function getPrice(locale: string, pokemon: ApiPokemon, species: A
         regularPrice: Math.round(tier * 8),
         salePrice: Math.round(tier * 8) * 0.5,
         isSale,
+        hasStock,
       }
     case 'us':
     default:
@@ -65,6 +76,7 @@ export default function getPrice(locale: string, pokemon: ApiPokemon, species: A
         regularPrice: tier * 10,
         salePrice: tier * 10 * 0.5,
         isSale,
+        hasStock,
       }; 
   }
 }

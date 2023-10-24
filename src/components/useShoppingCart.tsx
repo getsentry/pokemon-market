@@ -35,7 +35,7 @@ export default function useShoppingCart() {
     (name: string) => {
       console.log('removing from card', {name}, rawCart);
       delete rawCart[name];
-      set(KEY, rawCart);
+      set(KEY, { ...rawCart });
     },
     [rawCart, set]
   );

@@ -2,6 +2,7 @@ import { SinglePokemonResponse } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import AddToCartButton from "@/components/AddToCartButton";
 import apiFetch from "@/components/apiFetch";
 import cx from "classnames";
 import ImageViewer from "@/components/ImageViewer";
@@ -15,25 +16,23 @@ import first from "@/utils/array/first";
 
 export default function PokemonName() {
   const router = useRouter();
-  const {addToCart} = useShoppingCart();
+  const { addToCart } = useShoppingCart();
   const [amount, setAmount] = useState(1);
 
   const { pokemonName } = router.query;
 
   const { data } = useQuery<ApiItemResult<SinglePokemonResponse>>({
     queryKey: ["/api/pokemon", pokemonName],
-    queryFn: ({ queryKey }) => apiFetch(queryKey.join('/'), {}),
+    queryFn: ({ queryKey }) => apiFetch(queryKey.join("/"), {}),
     enabled: Boolean(pokemonName),
-    cacheTime: ["slowpoke", "slowbro"].includes(first(pokemonName ?? '')) ? 0 : undefined,
+    cacheTime: ["slowpoke", "slowbro"].includes(first(pokemonName ?? ""))
+      ? 0
+      : undefined,
   });
-  
+
   const { pokemon, species, evolution } = data?.result ?? {};
   if (!pokemon || !species || !evolution) {
-    return (
-      <div className="m-auto max-w-screen-lg">
-        Loading...
-      </div>
-    );
+    return <div className="m-auto max-w-screen-lg">Loading...</div>;
   }
 
   return (
@@ -85,11 +84,12 @@ export default function PokemonName() {
             />
           </div>
 
-          <button type="submit" title="Add this pokemon to your cart">
-            <div className="bg-red text-white rounded-full hover:bg-darkRed p-4">
-              Add to Cart
-            </div>
-          </button>
+          <AddToCartButton
+            className="p-4"
+            pokemon={pokemon}
+            species={species}
+            evolution={evolution}
+          />
         </form>
       </div>
       {/* <pre>{JSON.stringify(pokemon, null, "\t")}</pre> */}

@@ -15,44 +15,55 @@ interface Props {
 export default function PokemonPrice({ className, size, pokemon, species, evolution }: Props) {
   const { get } = useLocalstorage();
   const locale = (get("locale") ?? 'us') as string;
-  const {regularPrice, salePrice, isSale} = getPrice(locale, pokemon, species, evolution)
+  const {regularPrice, salePrice, isSale, hasStock} = getPrice(locale, pokemon, species, evolution)
+
+  const stockNotice = (
+    <div
+      className={cx("italic", {
+        "text-green": hasStock,
+        "text-lg": hasStock,
+        "text-xl": !hasStock,
+      })}
+    >
+      {hasStock ? "In Stock" : "Out of Stock"}
+    </div>
+  );
 
   if (isSale) {
     return (
-      <div
-        className={cx(className, "text-red", {
-          "text-4xl": size === "lg",
-          "text-xl": size === "sm",
-        })}
-      >
-        <div
-          className={cx(className, "text-black", {
+      <div>
+        <Price
+          amount={regularPrice}
+          className={cx("text-black", "line-through", {
             "text-2xl": size === "lg",
             "text-lg": size === "sm",
           })}
-        >
-          <Price
-            amount={regularPrice}
-            locale={locale}
-            className="line-through	"
-          />
-        </div>
-        <Price amount={salePrice} locale={locale} />
-        <div className="italic">Great Savings!!!</div>
+          locale={locale}
+        />
+
+        {size == "lg" ? (
+          <div className={cx(" flex gap-6 text-red", "italic", "text-4xl")}>
+            <Price amount={salePrice} locale={locale} />
+            Great Savings!!!
+          </div>
+        ) : (
+          <Price amount={salePrice} className={cx("text-red", "text-xl")} locale={locale} />
+        )}
+
+        {stockNotice}
       </div>
     );
   }
+
   return (
-    <div className={cx(className, "text-red", {
-      "text-4xl": size === "lg",
-      "text-xl": size === "sm",
-    })}>
-      {isSale
-        ? <div>
-            <Price amount={salePrice} locale={locale} className="line-through	" />
-            <Price amount={salePrice} locale={locale} />
-          </div>
-        : <Price amount={regularPrice} locale={locale} />}
+    <div
+      className={cx(className, "text-red", {
+        "text-4xl": size === "lg",
+        "text-xl": size === "sm",
+      })}
+    >
+      <Price amount={regularPrice} locale={locale} />
+      {stockNotice}
     </div>
   );
 }

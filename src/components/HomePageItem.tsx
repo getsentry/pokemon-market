@@ -1,3 +1,4 @@
+import AddToCartButton from "@/components/AddToCartButton";
 import Link from "next/link";
 import PokemonCardView from "@/components/PokemonCardView";
 import PokemonPrice from "@/components/PokemonPrice";
@@ -26,19 +27,20 @@ export default function HomePageItem({ pokemon, species, evolution }: Props) {
           evolution={evolution}
           size="sm"
         />
-        <button
-          title="Add this pokemon to your cart"
-          type="submit"
-          onClick={(e) => {
+        <form
+          className="flex-grow flex"
+          onSubmit={(e) => {
             addToCart(pokemon.name, 1);
             e.preventDefault();
-            e.stopPropagation();
           }}
         >
-          <div className="justify-self-end bg-red text-sm text-white rounded-full hover:bg-darkRed py-1 px-2">
-            Add to Cart
-          </div>
-        </button>
+          <AddToCartButton
+            className="justify-self-end text-sm py-1 px-2"
+            pokemon={pokemon}
+            species={species}
+            evolution={evolution}
+          />
+        </form>
       </PokemonCardView>
     </Link>
   );

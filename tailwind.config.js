@@ -15,6 +15,7 @@ module.exports = {
       black: "#000",
       border: "rgb(177,177,177)",
       blue: 'blue',
+      green: 'green',
     },
   },
   plugins: [],

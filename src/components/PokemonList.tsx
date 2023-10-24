@@ -1,5 +1,5 @@
 import { SinglePokemonResponse } from "@/types";
-import PokemonListItem from "@/components/HomePageItem";
+import HomePageItem from "@/components/HomePageItem";
 
 interface Props {
   pokemonList: SinglePokemonResponse[];
@@ -18,7 +18,7 @@ export default function PokemonList({pokemonList}: Props) {
             key={pokemon?.name ?? "missing-" + index}
             className={"flex bg-white hover:bg-hover"}
           >
-            <PokemonListItem
+            <HomePageItem
               pokemon={pokemon}
               species={species}
               evolution={evolution}

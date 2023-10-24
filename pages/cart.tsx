@@ -7,17 +7,17 @@ import apiPost from "@/components/apiPost";
 import { useEffect } from "react";
 
 export default function Home() {
-  const { trimCart, cart, removeFromCart } = useShoppingCart();
+  const { trimCart, cart } = useShoppingCart();
 
   useEffect(() => {
     trimCart();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const submitCart = useMutation({
-    mutationFn: (body: BodyInit) => apiPost('/api/store/buy', {}, body),
+    mutationFn: (body: BodyInit) => apiPost("/api/store/buy", {}, body),
     onSuccess: () => {
-      console.log('Order Submitted');
-    }
+      console.log("Order Submitted");
+    },
   });
   if (cart.length) {
     return (
@@ -35,20 +35,17 @@ export default function Home() {
         >
           {cart.map(([pokemonName, amount], index) => (
             <li key={`${pokemonName}-${amount}-${index}`} className="contents">
-              <CartItem
-                pokemonName={pokemonName}
-                amount={amount}
-                onSubmit={() => {
-                  removeFromCart(pokemonName);
-                }}
-              />
+              <CartItem pokemonName={pokemonName} amount={amount} />
             </li>
           ))}
         </ul>
-        <form className="p-4 self-end" onSubmit={e => {
-          submitCart.mutate(JSON.stringify(cart));
-          e.preventDefault();
-        }}>
+        <form
+          className="p-4 self-end"
+          onSubmit={(e) => {
+            submitCart.mutate(JSON.stringify(cart));
+            e.preventDefault();
+          }}
+        >
           <button type="submit" title="Checkout">
             <div className="flex gap-2 items-center bg-red hover:bg-darkRed text-white rounded-full p-4">
               Checkout

@@ -32,7 +32,9 @@ export default function Home() {
     return (
       <div>
         <ul className="grid md:grid-cols-2 grid-cols-1 gap-px bg-black p-px">
-          <li className="flex grow bg-white h-32 col-span-full" />
+          <li className="flex grow bg-white h-32 col-span-full place-content-center place-items-center">
+            Loading...
+          </li>
         </ul>
       </div>
     );

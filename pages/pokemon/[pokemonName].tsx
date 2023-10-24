@@ -77,7 +77,7 @@ export default function PokemonName() {
               Quantity
             </label>
             <input
-              type="text"
+              type="number"
               id="quantity"
               value={amount}
               className="border p-2"

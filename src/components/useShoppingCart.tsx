@@ -9,6 +9,18 @@ export default function useShoppingCart() {
   const { get, set } = useLocalstorage();
   const rawCart = useMemo(() => (get(KEY) ?? {}) as Cart, [get]);
 
+  const trimCart = useCallback(() => 
+    set(KEY, Object.fromEntries(Object.entries(rawCart).filter(([name, amount]) => amount))),
+    [rawCart, set]
+  );
+
+  const updateCartCount = useCallback((name: string, amount: number) => {
+    console.log("updating cart count", { name, amount }, rawCart);
+    rawCart[name] = rawCart[name] ?? 0;
+    rawCart[name] = amount;
+    set(KEY, { ...rawCart });
+  }, [rawCart, set]);
+
   const addToCart = useCallback(
     (name: string, amount: number) => {
       console.log('adding to cart', {name, amount}, rawCart);
@@ -28,9 +40,12 @@ export default function useShoppingCart() {
     [rawCart, set]
   );
 
+
   return {
+    trimCart,
     cart: Object.entries(rawCart),
     addToCart,
-    removeFromCart
+    updateCartCount,
+    removeFromCart,
   };
 }

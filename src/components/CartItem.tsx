@@ -1,11 +1,12 @@
 import { BsFillTrash3Fill } from "react-icons/bs";
+import { Fragment } from "react";
 import { useQuery } from "@tanstack/react-query";
 import apiFetch from "@/components/apiFetch";
 import PokemonCardView from "@/components/PokemonCardView";
+import PokemonPrice from "./PokemonPrice";
 import type { ApiItemResult } from "@/api/jsonItem";
 import type { SinglePokemonResponse } from "@/types";
-import PokemonPrice from "./PokemonPrice";
-import { Fragment } from "react";
+import useShoppingCart from "@/components/useShoppingCart";
 
 interface Props {
   pokemonName: string;
@@ -18,6 +19,8 @@ export default function CartItem({
   amount,
   onSubmit,
 }: Props) {
+  const {updateCartCount} = useShoppingCart();
+  
   const { data } = useQuery<ApiItemResult<SinglePokemonResponse>>({
     queryKey: ["/api/pokemon", pokemonName],
     queryFn: ({ queryKey }) => apiFetch(queryKey.join('/'), {}),
@@ -70,11 +73,13 @@ export default function CartItem({
             Quantity
           </label>
           <input
-            disabled
-            type="text"
+            type="number"
             id="quantity"
             value={amount}
-            className="border p-2 text-border inline w-28"
+            className="border p-2 inline w-28"
+            onChange={e => {
+              updateCartCount(pokemon.name, e.target.valueAsNumber);
+            }}
           />
         </div>
       </div>

@@ -4,9 +4,14 @@ import CartItemCSS from '@/components/CartItem.module.css';
 import cx from 'classnames';
 import { useMutation } from "@tanstack/react-query";
 import apiPost from "@/components/apiPost";
+import { useEffect } from "react";
 
 export default function Home() {
-  const { cart, removeFromCart } = useShoppingCart();
+  const { trimCart, cart, removeFromCart } = useShoppingCart();
+
+  useEffect(() => {
+    trimCart();
+  }, []);
 
   const submitCart = useMutation({
     mutationFn: (body: BodyInit) => apiPost('/api/store/buy', {}, body),

@@ -23,7 +23,7 @@ Sentry.init({
       blockAllMedia: false,
       networkDetailAllowUrls: [window.location.origin],
       networkDetailDenyUrls: [
-        window.location.origin + '/_next/*',
+        window.location.origin + '/_next/',
         window.location.origin + '/monitoring',
       ],
       networkCaptureBodies: true,

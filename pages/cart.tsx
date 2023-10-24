@@ -1,13 +1,15 @@
-import useShoppingCart from "@/components/useShoppingCart";
+import { useEffect } from "react";
+import { useMutation } from "@tanstack/react-query";
+import apiPost from "@/components/apiPost";
 import CartItem from "@/components/CartItem";
 import CartItemCSS from '@/components/CartItem.module.css';
 import cx from 'classnames';
-import { useMutation } from "@tanstack/react-query";
-import apiPost from "@/components/apiPost";
-import { useEffect } from "react";
+import useShoppingCart from "@/components/useShoppingCart";
+import {MdErrorOutline} from 'react-icons/md';
+import {BsCheck2Circle} from 'react-icons/bs';
 
 export default function Home() {
-  const { trimCart, cart } = useShoppingCart();
+  const { trimCart, clearCart, cart } = useShoppingCart();
 
   useEffect(() => {
     trimCart();
@@ -16,9 +18,30 @@ export default function Home() {
   const submitCart = useMutation({
     mutationFn: (body: BodyInit) => apiPost("/api/store/buy", {}, body),
     onSuccess: () => {
-      console.log("Order Submitted");
+      console.log("Order submitted successfully");
+      clearCart();
     },
+    onError: () => {
+      console.log("Order failed");
+    }
   });
+
+  const statusSection = (
+    <div className="flex justify-end">
+      {submitCart.isLoading ? <div>Placing order...</div> : null}
+      {submitCart.isError ? (
+        <div className="flex gap-4 items-center bg-red text-white rounded-lg p-4">
+          <MdErrorOutline size="30px" /> Error Checking out!
+        </div>
+      ) : null}
+      {submitCart.isSuccess ? (
+        <div className="flex gap-4 items-center bg-green text-white rounded-lg p-4">
+          <BsCheck2Circle/> Order placed!
+        </div>
+      ) : null}
+    </div>
+  );
+
   if (cart.length) {
     return (
       <div className="m-auto max-w-screen-lg flex flex-col">
@@ -52,12 +75,22 @@ export default function Home() {
             </div>
           </button>
         </form>
+
+        {statusSection}
       </div>
     );
   }
   return (
-    <div className="m-auto max-w-screen-lg flex flex-col">
-      <p className="text-center italic">Your cart is empty</p>
+    <div className="m-auto max-w-screen-lg flex flex-col gap-6">
+      <div>
+        <ul className="grid md:grid-cols-2 grid-cols-1 gap-px bg-black p-px">
+          <li className="flex grow bg-white h-32 col-span-full place-content-center place-items-center">
+            Your Cart is Empty!
+          </li>
+        </ul>
+      </div>
+
+      {statusSection}
     </div>
   );
 }

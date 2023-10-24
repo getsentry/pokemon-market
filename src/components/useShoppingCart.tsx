@@ -40,12 +40,15 @@ export default function useShoppingCart() {
     [rawCart, set]
   );
 
+  const cart = useMemo(() => Object.entries(rawCart), [rawCart]);
+  const itemCount = cart.reduce((sum, [,n]) => sum + n, 0);
 
   return {
     trimCart,
-    cart: Object.entries(rawCart),
+    cart,
     addToCart,
     updateCartCount,
     removeFromCart,
+    itemCount,
   };
 }

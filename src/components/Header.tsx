@@ -19,7 +19,12 @@ export default function Header() {
               <div
                 className={cx(
                   { underline: pathname === "/about" },
-                  "hover:bg-red", "text-white", "px-2", "py-1", "rounded-md", "text-md block"
+                  "hover:bg-red",
+                  "text-white",
+                  "px-2",
+                  "py-1",
+                  "rounded-md",
+                  "text-md block"
                 )}
               >
                 About
@@ -36,7 +41,7 @@ export default function Header() {
           </li>
         </ul>
       </aside>
-      <header className="flex grow items-center px-6 py-2 bg-red text-white">
+      <header className="flex grow items-center px-6 py-2 bg-red text-white sticky top-0 z-10">
         <Link href="/" title="Go to PokeMart homepage">
           <div className="hover:bg-darkRed rounded-xl px-4 py-2">
             <h1 className="flex flex-grow gap-4 items-center text-3xl font-semibold">

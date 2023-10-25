@@ -19,7 +19,7 @@ export default function HomePageItem({ pokemon, species, evolution }: Props) {
   }
 
   return (
-    <Link href={`/pokemon/${pokemon?.name}`} className="flex grow">
+    <Link href={`/pokemon/${pokemon?.name}`} className="flex grow relative">
       <PokemonCardView pokemon={pokemon}>
         <PokemonPrice
           pokemon={pokemon}

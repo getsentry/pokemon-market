@@ -11,9 +11,7 @@ import {BsCheck2Circle} from 'react-icons/bs';
 export default function Home() {
   const { trimCart, clearCart, cart } = useShoppingCart();
 
-  useEffect(() => {
-    trimCart();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(trimCart, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const submitCart = useMutation({
     mutationFn: (body: BodyInit) => apiPost("/api/store/buy", {}, body),

@@ -19,7 +19,7 @@ export default function PokemonPrice({ className, size, pokemon, species, evolut
 
   const stockNotice = (
     <div
-      className={cx("italic", {
+      className={cx("italic", "flex-grow", {
         "text-green": hasStock,
         "text-lg": hasStock,
         "text-xl": !hasStock,
@@ -57,7 +57,7 @@ export default function PokemonPrice({ className, size, pokemon, species, evolut
 
   return (
     <div
-      className={cx(className, "text-red", {
+      className={cx(className, "text-red", "flex-grow", {
         "text-4xl": size === "lg",
         "text-xl": size === "sm",
       })}

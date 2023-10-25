@@ -28,7 +28,7 @@ export default function HomePageItem({ pokemon, species, evolution }: Props) {
           size="sm"
         />
         <form
-          className="flex-grow flex"
+          className="flex-grow flex items-end"
           onSubmit={(e) => {
             addToCart(pokemon.name, 1);
             e.preventDefault();

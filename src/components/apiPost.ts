@@ -1,6 +1,10 @@
 import * as Sentry from '@sentry/nextjs';
 import qs, { type StringifiableRecord } from 'query-string';
 
+class NetworkError extends Error {
+  name = 'NetworkError';
+}
+
 export default async function apiPost(path: string, query: StringifiableRecord = {}, body: BodyInit | null | undefined = undefined) {
   const url = qs.stringifyUrl({ url: path, query });
   const response = await fetch(url, {
@@ -8,7 +12,7 @@ export default async function apiPost(path: string, query: StringifiableRecord =
     body,
   });
   if (!response.ok) {
-    const error = new Error(`Response returned ${response.status}`, {
+    const error = new NetworkError(`Ajax response returned ${response.status}`, {
       cause: response.statusText,
     });
     Sentry.captureException(error, {
@@ -18,3 +22,4 @@ export default async function apiPost(path: string, query: StringifiableRecord =
   }
   return response.json();
 }
+

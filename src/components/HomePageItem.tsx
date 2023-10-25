@@ -1,4 +1,7 @@
+import { BsCheckLg } from "react-icons/bs";
+import { useState } from "react";
 import AddToCartButton from "@/components/AddToCartButton";
+import cx from "classnames";
 import Link from "next/link";
 import PokemonCardView from "@/components/PokemonCardView";
 import PokemonPrice from "@/components/PokemonPrice";
@@ -13,6 +16,7 @@ interface Props {
 
 export default function HomePageItem({ pokemon, species, evolution }: Props) {
   const { addToCart } = useShoppingCart();
+  const [showAddToCartPopover, setShowAddToCartPopover] = useState(false);
 
   if (!pokemon || !species || !evolution) {
     return null;
@@ -32,6 +36,10 @@ export default function HomePageItem({ pokemon, species, evolution }: Props) {
           onSubmit={(e) => {
             addToCart(pokemon.name, 1);
             e.preventDefault();
+            setTimeout(() => {
+              setShowAddToCartPopover(false);
+            }, 2000);
+            setShowAddToCartPopover(true);
           }}
         >
           <AddToCartButton
@@ -41,6 +49,16 @@ export default function HomePageItem({ pokemon, species, evolution }: Props) {
             evolution={evolution}
           />
         </form>
+        <div
+          className={cx(
+            { block: showAddToCartPopover, hidden: !showAddToCartPopover },
+            "absolute top-1 flex justify-center left-0 right-0"
+          )}
+        >
+          <div className="border border-green bg-white text-green shadow-md p-4 rounded flex gap-2 items-center">
+            <BsCheckLg /> Added to cart!
+          </div>
+        </div>
       </PokemonCardView>
     </Link>
   );

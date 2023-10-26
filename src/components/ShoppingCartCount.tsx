@@ -19,7 +19,7 @@ export default function ShoppingCartCount() {
       })}
       id="view-cart"
     >
-      <div className="flex items-center gap-2 hover:bg-darkRed rounded-xl px-4 py-2">
+      <div className="sentry-mask flex items-center gap-2 hover:bg-darkRed rounded-xl px-4 py-2">
         <BsCart />
         <span>{itemCount} items</span>
       </div>

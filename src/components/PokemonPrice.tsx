@@ -31,7 +31,7 @@ export default function PokemonPrice({ className, size, pokemon, species, evolut
 
   if (isSale) {
     return (
-      <div>
+      <div className={className}>
         <Price
           amount={regularPrice}
           className={cx("text-black", "line-through", {

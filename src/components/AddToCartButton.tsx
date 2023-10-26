@@ -23,6 +23,7 @@ export default function AddToCartButton({ className, pokemon, species, evolution
         title="Add this pokemon to your cart"
         type={"submit"}
         onClick={(e) => { e.stopPropagation() }}
+
       >
         <div
           className={cx(
@@ -39,7 +40,7 @@ export default function AddToCartButton({ className, pokemon, species, evolution
     );
   } else {
     return (
-      <a className="flex-grow" title="Add this pokemon to your cart">
+      <a className="btn btn-cart-add flex-grow" title="Add this pokemon to your cart">
         <div
           className={cx(
             className,

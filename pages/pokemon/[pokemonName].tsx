@@ -61,13 +61,16 @@ export default function PokemonName() {
             setShowAddToCartPopover(true);
           }}
         >
-          <div>
-            <h3>Type:</h3>
-            <ol className="flex flex-col raw mt-0">
-              {pokemon.types.map(({ type }) => (
-                <li key={type.name}>{type.name}</li>
-              ))}
-            </ol>
+          <div className="grid grid-cols-2">
+            <div>
+              <h3>Type:</h3>
+              <ol className="flex flex-col raw mt-0">
+                {pokemon.types.map(({ type }) => (
+                  <li key={type.name}>{type.name}</li>
+                ))}
+              </ol>
+            </div>
+            <p className="text-lg">{species.flavor_text_entry.flavor_text}</p>
           </div>
 
           <PokemonPrice

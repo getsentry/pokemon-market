@@ -41,7 +41,7 @@ const OVERRIDE: Record<string, Record<string, Price>> = {
   gb: {
     pikachu: {
       regularPrice: 100,
-      salePrice: 1000,
+      salePrice: 5000,
       isSale: true,
       hasStock: true,
     },

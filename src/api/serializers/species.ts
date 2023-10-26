@@ -7,7 +7,7 @@ export default function serializeSpecies(species: PokemonSpecies | undefined) {
 
   const {flavor_text_entries, evolves_from_species, id, name} = species;
   return {
-    flavor_text_entries: flavor_text_entries.slice(0, 1),
+    flavor_text_entry: flavor_text_entries.slice(0, 1)[0],
     evolves_from_species,
     id,
     name,

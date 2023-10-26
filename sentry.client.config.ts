@@ -16,11 +16,17 @@ Sentry.init({
   debug: false,
 
   replaysOnErrorSampleRate: 1.0,
+
   replaysSessionSampleRate: 1.0,
+
   integrations: [
     new Sentry.Replay({
-      maskAllText: false,
-      blockAllMedia: false,
+      maskAllText: true,
+      unmask: ['aside', 'header', 'nav', '.store-item'],
+      
+      blockAllMedia: true,
+      unblock: ['[data-cdn-image]'],
+
       networkDetailAllowUrls: [window.location.origin],
       networkDetailDenyUrls: [
         window.location.origin + '/_next/',
@@ -28,6 +34,7 @@ Sentry.init({
       ],
       networkCaptureBodies: true,
     }),
+
     new Feedback({
       colorScheme: 'light',
     }),

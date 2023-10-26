@@ -32,7 +32,7 @@ export default function Header() {
             </Link>
           </li>
         </ul>
-        <ul className="flex flex-grow items-center justify-end gap-4">
+        <ul className="flex flex-grow items-center justify-end gap-4 sentry-mask">
           <li>
             <FlagPicker />
           </li>

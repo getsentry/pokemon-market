@@ -20,6 +20,7 @@ export default function ImageViewer({
   return (
     <div className={cx(className, "grid grid-flow-row gap-px p-px bg-black")}>
       <img
+        data-cdn-image
         src={pokemon.sprites[img] ?? undefined}
         alt={pokemon.name}
         className={cx("bg-white", "h-96", "w-96")}

@@ -5,8 +5,7 @@ export default function AuthButton() {
 
   return (
     <button
-      aria-label={isLoggedIn ? 'logout' : 'login'}
-      className="sentry-mask"
+      aria-label={isLoggedIn ? "logout" : "login"}
       onClick={() => {
         if (isLoggedIn) {
           logout();

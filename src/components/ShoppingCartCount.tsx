@@ -14,7 +14,10 @@ export default function ShoppingCartCount() {
       aria-label="View Cart"
       title="View Cart"
       href="/cart"
-      className={cx({ underline: pathname === "/cart" })}
+      className={cx("btn", "btn-cart-icon", {
+        underline: pathname === "/cart",
+      })}
+      id="view-cart"
     >
       <div className="flex items-center gap-2 hover:bg-darkRed rounded-xl px-4 py-2">
         <BsCart />

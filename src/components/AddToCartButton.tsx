@@ -16,29 +16,44 @@ export default function AddToCartButton({ className, pokemon, species, evolution
 
   const { hasStock } = getPrice(locale, pokemon, species, evolution);
 
-  return (
-    <button
-      className="flex-grow"
-      title="Add this pokemon to your cart"
-      type={"submit"}
-      onClick={(e) => {
-        e.stopPropagation();
-        if (!hasStock) {
-          e.preventDefault();
-        }
-      }}
-    >
-      <div
-        className={cx(
-          className,
-          "bg-red",
-          "text-white",
-          "hover:bg-darkRed",
-          "rounded-full"
-        )}
+  if (hasStock) {
+    return (
+      <button
+        className="flex-grow"
+        title="Add this pokemon to your cart"
+        type={"submit"}
+        onClick={(e) => { e.stopPropagation() }}
       >
-        Add to Cart
-      </div>
-    </button>
-  );
+        <div
+          className={cx(
+            className,
+            "bg-red",
+            "text-white",
+            "hover:bg-darkRed",
+            "rounded-full"
+          )}
+        >
+          Add to Cart
+        </div>
+      </button>
+    );
+  } else {
+    return (
+      <a className="flex-grow" title="Add this pokemon to your cart">
+        <div
+          className={cx(
+            className,
+            "text-center",
+            "cursor-pointer",
+            "bg-red",
+            "text-white",
+            "hover:bg-darkRed",
+            "rounded-full"
+          )}
+        >
+          Add to Cart
+        </div>
+      </a>
+    );
+  }
 }

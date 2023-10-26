@@ -42,10 +42,10 @@ export default function PokemonName() {
       <Head>
         <title>Pokemart - {pokemon.name}</title>
       </Head>
-      <div className={cx(Media.layout, "gap-x-10 gap-y-6 rounded-xl")}>
+      <div className={cx(Media.layout, "gap-x-10 gap-y-6 rounded-xl relative")}>
         <ImageViewer className={Media.img} pokemon={pokemon} />
         <div className={Media.title}>
-          <h2 className={PokemonCardView.title}>
+          <h2 className={cx(PokemonCardView.title, "store-item")}>
             <span className={PokemonCardView.id}>#{pokemon.id}</span>
             <span className={PokemonCardView.name}>{pokemon.name}</span>
           </h2>
@@ -74,6 +74,7 @@ export default function PokemonName() {
           </div>
 
           <PokemonPrice
+            className="store-item"
             pokemon={pokemon}
             species={species}
             evolution={evolution}

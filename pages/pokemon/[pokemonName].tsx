@@ -88,7 +88,7 @@ export default function PokemonName() {
               type="number"
               id="quantity"
               value={amount}
-              className="border p-2"
+              className="border p-2 sentry-mask"
               onChange={(e) => setAmount(Number(e.target.value))}
             />
           </div>

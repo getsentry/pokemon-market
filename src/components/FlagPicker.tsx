@@ -11,12 +11,8 @@ export default function FlagPicker() {
       onChange={(e) => set("locale", e.target.value)}
       value={selected}
     >
-      <option value="us">
-        {getUnicodeFlagIcon("US")} USA
-      </option>
-      <option value="gb">
-        {getUnicodeFlagIcon("GB")} United Kindom
-      </option>
+      <option value="us">{getUnicodeFlagIcon("US")} USA</option>
+      <option value="gb">{getUnicodeFlagIcon("GB")} United Kingdom</option>
     </select>
   );
 }

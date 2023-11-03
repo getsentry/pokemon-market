@@ -40,10 +40,10 @@ export default function Home() {
     );
   }
 
-  const searchTerm = String(router.query.q ?? '');
+  const searchTerm = String(router.query.q ?? '').toLowerCase();
   const filteredPokemonList = searchTerm
     ? pokemonList.filter(({pokemon}) => 
-      pokemon?.name.includes(searchTerm) || searchTerm?.includes(pokemon?.name ?? '')
+      pokemon?.name.includes(searchTerm) || searchTerm?.includes(pokemon?.name.toLowerCase() ?? '')
     ) 
     : pokemonList;
 

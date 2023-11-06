@@ -37,6 +37,12 @@ Sentry.init({
 
     new Feedback({
       colorScheme: 'light',
+      themeLight:{ 
+
+        submitBackground: "rgb(235,20,20)",
+        submitBackgroundHover: "rgb(140,0,0)",
+        submitBorder: "rgb (0,0,0)"
+      }
     }),
   ],
 });

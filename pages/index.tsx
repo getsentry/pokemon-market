@@ -1,7 +1,9 @@
+import cx from "classnames";
 import { range } from "@/utils/array/range";
 import { ReactElement } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
+import { Fragment, useMemo, useState } from "react";
 import apiFetch from "@/components/apiFetch";
 import Head from "next/head";
 import Header from "@/components/Header";
@@ -10,25 +12,39 @@ import type { ApiListResult } from "@/api/jsonList";
 import type { ListPokemonResponse } from "@/types";
 import PokemonList from "@/components/PokemonList";
 
-const totalCardCount = 151;
-const maxPageSize = 10;
-const queries = range(0, 16).map((i) => ({
-  offset: maxPageSize * i,
-  limit: Math.min(maxPageSize * (i + 1), totalCardCount) - maxPageSize * i,
-}));
+// a page size that works with 2, 3, and 4 column layouts
+const defaultPageSize = 12;
 
 export default function Home() {
   const router = useRouter();
+
+  const [offset, setOffset] = useState(0);
+
   const { data } = useQuery<Array<ApiListResult<ListPokemonResponse>>>({
-    queryKey: ["/api/pokemon"],
-    queryFn: ({ queryKey }) =>
-      Promise.all(queries.map((query) => apiFetch(queryKey.join("/"), query))),
+    queryKey: ["/api/pokemon", offset],
+    queryFn: ({ queryKey }) => apiFetch("/api/pokemon", {
+      offset,
+      limit: defaultPageSize,
+    }),
     enabled: true,
   });
 
-  const pokemonList = data?.flatMap(apiResult => apiResult.results);
+  const pokemonCount = data?.count ?? 0;
+  const pokemonList = data?.results ?? [];
 
-  if (!pokemonList) {
+  const filteredPokemonList = useMemo(() => {
+    const searchTerm = String(router.query.q ?? '').toLowerCase();
+    return searchTerm
+      ? pokemonList.filter(({pokemon}) =>
+        pokemon?.name.includes(searchTerm) || searchTerm?.includes(pokemon?.name.toLowerCase() ?? '')
+      )
+      : pokemonList;
+  }, [router.query.q, pokemonList]);
+
+  const hasPrev = offset > 0;
+  const hasNext = offset + defaultPageSize < pokemonCount;
+
+  if (!pokemonCount || !pokemonList) {
     return (
       <div>
         <ul className="grid md:grid-cols-2 grid-cols-1 gap-px bg-black p-px">
@@ -40,14 +56,39 @@ export default function Home() {
     );
   }
 
-  const searchTerm = String(router.query.q ?? '').toLowerCase();
-  const filteredPokemonList = searchTerm
-    ? pokemonList.filter(({pokemon}) => 
-      pokemon?.name.includes(searchTerm) || searchTerm?.includes(pokemon?.name.toLowerCase() ?? '')
-    ) 
-    : pokemonList;
+  return (
+    <Fragment>
+      <PokemonList pokemonList={filteredPokemonList} />
+      <div className="py-5 flex justify-center gap-8">
+        <PaginationButton
+          enabled={hasPrev}
+          onClick={() => setOffset(offset - defaultPageSize)}
+        >
+          Previous
+        </PaginationButton>
+        <PaginationButton
+          enabled={hasNext}
+          onClick={() => setOffset(offset + defaultPageSize)}
+        >
+          Next
+        </PaginationButton>
+      </div>
+    </Fragment>
+  );
+}
 
-  return <PokemonList pokemonList={filteredPokemonList} />;
+function PaginationButton({enabled, onClick, children}: {enabled: boolean; onClick: () => void; children: ReactNode}) {
+  return (
+    <button 
+      disabled={!enabled}
+      className="flex-grow"
+      onClick={onClick}
+    >
+      <div className="text-sm py-1 px-2 bg-red text-white hover:bg-darkRed rounded-full">
+        {children}
+      </div>
+    </button>
+  );
 }
 
 function Layout({page}: {page: ReactElement}) {

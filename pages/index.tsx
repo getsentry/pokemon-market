@@ -1,6 +1,6 @@
 import cx from "classnames";
 import { range } from "@/utils/array/range";
-import { ReactElement } from "react";
+import { ReactElement, ReactNode } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { Fragment, useMemo, useState } from "react";
@@ -20,7 +20,7 @@ export default function Home() {
 
   const [offset, setOffset] = useState(0);
 
-  const { data } = useQuery<Array<ApiListResult<ListPokemonResponse>>>({
+  const { data } = useQuery<ApiListResult<ListPokemonResponse>>({
     queryKey: ["/api/pokemon", 'offset', offset],
     queryFn: ({ queryKey }) => apiFetch("/api/pokemon", {
       offset,
@@ -31,7 +31,7 @@ export default function Home() {
   });
 
   const pokemonCount = data?.count ?? 0;
-  const pokemonList = data?.results ?? [];
+  const pokemonList = useMemo(() => data?.results ?? [], [data?.results]);
 
   const filteredPokemonList = useMemo(() => {
     const searchTerm = String(router.query.q ?? '').toLowerCase();

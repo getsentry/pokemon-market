@@ -21,12 +21,13 @@ export default function Home() {
   const [offset, setOffset] = useState(0);
 
   const { data } = useQuery<Array<ApiListResult<ListPokemonResponse>>>({
-    queryKey: ["/api/pokemon", offset],
+    queryKey: ["/api/pokemon", 'offset', offset],
     queryFn: ({ queryKey }) => apiFetch("/api/pokemon", {
       offset,
       limit: defaultPageSize,
     }),
     enabled: true,
+    cacheTime: 0,
   });
 
   const pokemonCount = data?.count ?? 0;

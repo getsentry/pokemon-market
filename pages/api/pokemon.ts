@@ -21,9 +21,8 @@ export default respondWith(async function ApiPokemon(req: NextApiRequest) {
 
   // TODO[perf]: this could be parallelized
   const count = await genCountAllPokemon();
-  const results = await genListPokemon(cursor);
-  const data = results.map(unpackSettledResults);
-  
+  const data = await genListPokemon(cursor);
+
   return jsonList<Data, ListPokemonResponse>(req, cursor, data, count, (data) => ({
     pokemon: serializePokemon(data?.pokemon),
     species: serializeSpecies(data?.species),

@@ -1,21 +1,18 @@
 .layout {
   display: grid;
-  grid-template-areas:
-    'img'
-    'title'
-    'desc';
-  grid-template-rows: max-content;
-  grid-template-columns: 1fr;
+  grid-template:
+    'img' max-content
+    'title' max-content
+    'desc' max-content
+    / 1fr;
 }
 
 @media (min-width: 768px) {
   .layout {
-    
-    grid-template-areas:
-      'img title'
-      'img desc';
-    grid-template-rows: max-content 1fr;
-    grid-template-columns: max-content 1fr;
+    grid-template:
+      "img title" max-content
+      "img desc" 1fr
+      / max-content 1fr;
   }
 }
 

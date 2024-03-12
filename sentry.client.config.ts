@@ -21,27 +21,26 @@ Sentry.init({
   integrations: [
     new Sentry.Replay({
       maskAllText: true,
-      unmask: ['aside', 'header', 'nav', '.store-item'],
-      
+      unmask: ["aside", "header", "nav", ".store-item"],
+
       blockAllMedia: true,
-      unblock: ['[data-cdn-image]'],
+      unblock: ["[data-cdn-image]"],
 
       networkDetailAllowUrls: [window.location.origin],
       networkDetailDenyUrls: [
-        window.location.origin + '/_next/',
-        window.location.origin + '/monitoring',
+        window.location.origin + "/_next/",
+        window.location.origin + "/monitoring",
       ],
       networkCaptureBodies: true,
     }),
 
-      colorScheme: 'light',
-      themeLight:{ 
-
     new Sentry.Feedback({
+      colorScheme: "light",
+      themeLight: {
         submitBackground: "rgb(235,20,20)",
         submitBackgroundHover: "rgb(140,0,0)",
-        submitBorder: "rgb (0,0,0)"
-      }
+        submitBorder: "rgb (0,0,0)",
+      },
     }),
   ],
 });

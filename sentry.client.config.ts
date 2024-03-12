@@ -3,8 +3,7 @@
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
 import * as Sentry from "@sentry/nextjs";
-import dsn from './sentry.shared.dsn';
-import { Feedback } from "@sentry-internal/feedback";
+import dsn from "./sentry.shared.dsn";
 
 Sentry.init({
   dsn,
@@ -35,10 +34,10 @@ Sentry.init({
       networkCaptureBodies: true,
     }),
 
-    new Feedback({
       colorScheme: 'light',
       themeLight:{ 
 
+    new Sentry.Feedback({
         submitBackground: "rgb(235,20,20)",
         submitBackgroundHover: "rgb(140,0,0)",
         submitBorder: "rgb (0,0,0)"

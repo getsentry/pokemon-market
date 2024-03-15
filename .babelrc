@@ -1,0 +1,4 @@
+{
+  "presets": ["next/babel"],
+  "plugins": ["@sentry/babel-plugin-component-annotate"]
+}

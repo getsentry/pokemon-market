@@ -51,5 +51,8 @@
   "volta": {
     "node": "20.4.0",
     "yarn": "4.1.1"
+  },
+  "devDependencies": {
+    "@sentry/babel-plugin-component-annotate": "^2.15.0"
   }
 }

@@ -4,6 +4,9 @@
 /node_modules
 /.pnp
 .pnp.js
+.pnp.cjs
+.pnp.loader.mjs
+.pnp.*
 
 # testing
 /coverage
@@ -36,3 +39,6 @@ next-env.d.ts
 
 # Sentry Auth Token
 .sentryclirc
+
+# yarn
+/.yarn/

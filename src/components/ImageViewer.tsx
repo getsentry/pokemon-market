@@ -33,6 +33,7 @@ export default function ImageViewer({
             className="bg-white hover:bg-hover text-black flex justify-center p-2"
           > 
             <img
+              data-cdn-image="true"
               src={pokemon.sprites[img] ?? undefined}
               alt={pokemon.name}
               className="h-16 w-16"

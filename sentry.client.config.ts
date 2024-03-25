@@ -19,12 +19,15 @@ Sentry.init({
   replaysSessionSampleRate: 1.0,
 
   integrations: [
-    new Sentry.Replay({
+    Sentry.replayIntegration({
       maskAllText: true,
-      unmask: ["aside", "header", "nav", ".store-item"],
+      unmask: [
+        "header",
+        "nav",
+      ],
 
       blockAllMedia: true,
-      unblock: ["[data-cdn-image]"],
+      unblock: [],
 
       networkDetailAllowUrls: [window.location.origin],
       networkDetailDenyUrls: [
@@ -34,7 +37,7 @@ Sentry.init({
       networkCaptureBodies: true,
     }),
 
-    new Sentry.Feedback({
+    Sentry.feedbackIntegration({
       colorScheme: "light",
       themeLight: {
         submitBackground: "rgb(235,20,20)",

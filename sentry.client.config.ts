@@ -21,13 +21,7 @@ Sentry.init({
   integrations: [
     Sentry.replayIntegration({
       maskAllText: true,
-      unmask: [
-        "header",
-        "nav",
-      ],
-
       blockAllMedia: true,
-      unblock: [],
 
       networkDetailAllowUrls: [window.location.origin],
       networkDetailDenyUrls: [

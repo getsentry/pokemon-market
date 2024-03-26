@@ -21,7 +21,9 @@ Sentry.init({
   integrations: [
     Sentry.replayIntegration({
       maskAllText: true,
+      unmask: ["aside", "header", "nav", ".store-item"],
       blockAllMedia: true,
+      unblock: ["[data-cdn-image]"],
 
       networkDetailAllowUrls: [window.location.origin],
       networkDetailDenyUrls: [

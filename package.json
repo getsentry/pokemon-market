@@ -25,7 +25,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@sentry/nextjs": "^7.105.0",
+    "@sentry-internal/feedback": "file:.yalc/@sentry-internal/feedback",
+    "@sentry/nextjs": "file:.yalc/@sentry/nextjs",
     "@tanstack/react-query": "^4.36.1",
     "@types/node": "20.4.1",
     "@types/react": "18.2.14",
@@ -50,7 +51,7 @@
   },
   "volta": {
     "node": "20.4.0",
-    "yarn": "4.1.1"
+    "yarn": "1.21.1"
   },
   "devDependencies": {
     "@sentry/babel-plugin-component-annotate": "^2.15.0"

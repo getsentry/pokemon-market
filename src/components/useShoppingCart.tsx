@@ -38,7 +38,7 @@ export default function useShoppingCart() {
 
   const removeFromCart = useCallback(
     (name: string) => {
-      console.log('removing from card', {name}, rawCart);
+      console.log('removing from cart', {name}, rawCart);
       delete rawCart[name];
       set(KEY, { ...rawCart });
     },

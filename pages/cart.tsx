@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
 import apiPost from "@/components/apiPost";
 import CartItem from "@/components/CartItem";
@@ -8,7 +8,7 @@ import useShoppingCart from "@/components/useShoppingCart";
 import {MdErrorOutline} from 'react-icons/md';
 import {BsCheck2Circle} from 'react-icons/bs';
 
-export default function Home() {
+export default function CartPage() {
   const { trimCart, clearCart, cart } = useShoppingCart();
 
   useEffect(trimCart, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -42,24 +42,14 @@ export default function Home() {
 
   if (cart.length) {
     return (
-      <div className="m-auto max-w-screen-lg flex flex-col">
-        <ul
-          className={cx(
-            CartItemCSS.gridRow,
-            "grid",
-            "p-px",
-            "gap-y-px",
-            "bg-black",
-            "grid-cols-1",
-            "sm:grid-cols-3"
-          )}
-        >
+      <ShoppingCart>
+        <CartItems>
           {cart.map(([pokemonName, amount], index) => (
             <li key={`${pokemonName}-${amount}-${index}`} className="contents">
               <CartItem pokemonName={pokemonName} amount={amount} />
             </li>
           ))}
-        </ul>
+        </CartItems>
         <form
           className="p-4 self-end"
           onSubmit={(e) => {
@@ -67,19 +57,15 @@ export default function Home() {
             e.preventDefault();
           }}
         >
-          <button type="submit" title="Checkout">
-            <div className="flex gap-2 items-center bg-red hover:bg-darkRed text-white rounded-full p-4">
-              Checkout
-            </div>
-          </button>
+          <CheckoutButton />
         </form>
 
         {statusSection}
-      </div>
+      </ShoppingCart>
     );
   }
   return (
-    <div className="m-auto max-w-screen-lg flex flex-col gap-6">
+    <ShoppingCart className="gap-6">
       <div>
         <ul className="grid md:grid-cols-2 grid-cols-1 gap-px bg-black p-px">
           <li className="flex grow bg-white h-32 col-span-full place-content-center place-items-center">
@@ -89,6 +75,34 @@ export default function Home() {
       </div>
 
       {statusSection}
-    </div>
+    </ShoppingCart>
+  );
+}
+
+function ShoppingCart({children, className}: {children: ReactNode[], className?: string}) {
+  return (
+    <div className={cx("m-auto max-w-screen-lg flex flex-col", className)}>{children}</div>
+  );
+}
+
+function CartItems({children}: {children: ReactNode[]}) {
+  return (
+    <ul
+      className={cx(
+        CartItemCSS.gridRow,
+        "grid p-px gap-y-px bg-black",
+        "grid-cols-1 sm:grid-cols-3"
+      )}
+    >{children}</ul>
+  );  
+}
+
+function CheckoutButton() {
+  return (
+    <button type="submit" title="Checkout">
+      <div className="flex gap-2 items-center bg-red hover:bg-darkRed text-white rounded-full p-4">
+        Checkout
+      </div>
+    </button>
   );
 }

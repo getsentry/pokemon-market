@@ -25,7 +25,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@sentry/nextjs": "^7.109.0",
+    "@sentry-internal/feedback": "8.0.0-alpha.9",
+    "@sentry/nextjs": "8.0.0-alpha.9",
     "@tanstack/react-query": "^4.36.1",
     "@types/node": "20.4.1",
     "@types/react": "18.2.14",

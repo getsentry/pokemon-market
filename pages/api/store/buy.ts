@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import {serializeError} from 'serialize-error';
 
 class InventoryError extends Error {
   name = 'InventoryError';
@@ -13,7 +14,7 @@ export default async function ApiPokemonFeatured(req: NextApiRequest, res: NextA
       setTimeout(resolve, 4000);
     });
 
-    throw new InventoryError("Invalid Pokemon selected");
+    res.status(400).json({error: serializeError(new InventoryError("Invalid Pokemon selected"))})
   } else {
     res.status(200).json({success: true});
   }

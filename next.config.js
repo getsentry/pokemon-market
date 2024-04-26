@@ -1,15 +1,14 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
-
-module.exports = nextConfig
-
-
-// Injected content via Sentry wizard below
+const nextConfig = {
+  experimental: {
+    instrumentationHook: true,
+  },
+};
 
 const { withSentryConfig } = require("@sentry/nextjs");
 
 module.exports = withSentryConfig(
-  module.exports,
+  nextConfig,
   {
     // For all available options, see:
     // https://github.com/getsentry/sentry-webpack-plugin#options
@@ -19,8 +18,7 @@ module.exports = withSentryConfig(
 
     org: 'sentry-test',
     project: 'pokemart',
-  },
-  {
+
     // For all available options, see:
     // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
 

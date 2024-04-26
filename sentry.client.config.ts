@@ -4,7 +4,6 @@
 
 import * as Sentry from "@sentry/nextjs";
 import dsn from "./sentry.shared.dsn";
-import {feedbackIntegration, feedbackModalIntegration, feedbackScreenshotIntegration} from '@sentry-internal/feedback';
 
 Sentry.init({
   dsn,
@@ -34,15 +33,14 @@ Sentry.init({
       networkCaptureBodies: true,
     }),
 
-    feedbackIntegration({
+    Sentry.feedbackIntegration({
       colorScheme: "light",
+      showScreenshot: true,
       themeLight: {
         submitBackground: "rgb(235,20,20)",
         submitBackgroundHover: "rgb(140,0,0)",
         submitBorder: "rgb (0,0,0)",
       },
     }),
-    feedbackModalIntegration(),
-    feedbackScreenshotIntegration(),
   ],
 });

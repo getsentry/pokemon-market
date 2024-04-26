@@ -31,14 +31,25 @@ export const SALE = [
   'slowpoke',
   'snorlax',
   'mewtwo',
+  'missingno',
 ];
 
 const OUT_OF_STOCK = [
   'charizard',
 ];
 
+const MISSINGNO = {
+  regularPrice: 0,
+  salePrice: 0,
+  isSale: true,
+  hasStock: true,
+};
 const OVERRIDE: Record<string, Record<string, Price>> = {
+  us: {
+    missingno: MISSINGNO,
+  },
   gb: {
+    missingno: MISSINGNO,
     pikachu: {
       regularPrice: 100,
       salePrice: 5000,

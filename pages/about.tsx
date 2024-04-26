@@ -16,11 +16,11 @@ export default function About() {
       </p>
       <ul className="raw">
         <li>
-          <strong>Backend Error</strong> If you have Mewtwo in your cart, and
+          <strong>Backend Error</strong> If you have MissingNo in your cart, and
           try to Checkout: the backend will throw an error.
         </li>
         <li>
-          <strong>Frontend Error</strong> If you have Mewtwo in your cart, and
+          <strong>Frontend Error</strong> If you have MissingNo in your cart, and
           try to Checkout: the frontend will receive a 500 response from the
           backend and throw it&apos;s own error.
         </li>

@@ -70,7 +70,7 @@ export default function PokemonName() {
                 ))}
               </ol>
             </div>
-            <p className="text-lg">{species.flavor_text_entry.flavor_text}</p>
+            <p className="text-lg">{species.flavor_text_entry?.flavor_text}</p>
           </div>
 
           <PokemonPrice

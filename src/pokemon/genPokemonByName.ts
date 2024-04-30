@@ -1,4 +1,4 @@
-import {missingNo} from "@/api/missingNo";
+import {missingNo} from "@/pokemon/missingNo";
 import type { Pokemon, PokemonSpecies, EvolutionChain } from "pokenode-ts";
 import mainClient from "@/pokemon/apiClient";
 

@@ -1,3 +1,4 @@
+// @ts-check
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
@@ -18,13 +19,14 @@ module.exports = withSentryConfig(
 
     org: 'sentry-test',
     project: 'pokemart',
-
+  },
+  {
     // For all available options, see:
     // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
 
     // Upload a larger set of source maps for prettier stack traces (increases build time)
     widenClientFileUpload: true,
-
+  
     // Transpiles SDK to be compatible with IE11 (increases bundle size)
     transpileClientSDK: false,
 

@@ -6,6 +6,7 @@ import cx from 'classnames';
 import FlagPicker from "@/components/FlagPicker";
 import Link from "next/link";
 import ShoppingCartCount from "@/components/ShoppingCartCount";
+import FeedbackButton from "./FeedbackButton";
 
 export default function Header() {
   const {pathname} = useRouter();
@@ -33,6 +34,9 @@ export default function Header() {
           </li>
         </ul>
         <ul className="flex flex-grow items-center justify-end gap-4 sentry-mask">
+          <li>
+            <FeedbackButton />
+          </li>
           <li>
             <FlagPicker />
           </li>

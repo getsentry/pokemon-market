@@ -122,8 +122,19 @@ function CreateFeedbackFromButton() {
 
 function MyFeedbackForm() {
   return (
-    <form id="my-feedback-form" onSubmit={event => {
+    <form id="my-feedback-form" onSubmit={async event => {
       const formData = new FormData(event.currentTarget);
+      
+      const attachment = async () => {
+        const data = new Uint8Array(
+          await formData.get("attachment").arrayBuffer()
+        );
+        const attachmentData = {
+          data,
+          ...formData.get("attachment"),
+        };
+        return attachmentData;
+      };
       
       Sentry.getCurrentScope().setTags({component: 'MyFeedbackForm'});
       Sentry.captureFeedback({
@@ -131,7 +142,7 @@ function MyFeedbackForm() {
         email: formData.get('email'),
         message: formData.get('message'),
       }, {
-        attachments: [],
+        attachments: [await attachment()],
       });
       event.preventDefault();
     }}>
@@ -139,7 +150,7 @@ function MyFeedbackForm() {
       <input name="email" placeholder="Your Email" />
       <textarea name="message" placeholder="What's the issue?" />
       <input type="file" name="attachment" />
-      <button type="submit" className="hover:bg-hover px-4 py-2 rounded-md">Submit</button>
+      <button type="submit">Submit</button>
     </form>
   );
 }

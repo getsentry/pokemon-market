@@ -1,7 +1,9 @@
+"use client";
+
 import type {RefObject} from 'react';
-import {useEffect} from 'react';
-import * as Sentry from '@sentry/browser';
-import type { OverrideFeedbackConfiguration } from '@sentry/types';
+import {useEffect, useState} from 'react';
+import * as Sentry from '@sentry/nextjs';
+import type { OverrideFeedbackConfiguration } from '@sentry/nextjs';
 
 interface Props {
   buttonRef?: RefObject<HTMLButtonElement> | RefObject<HTMLAnchorElement>;
@@ -12,7 +14,11 @@ export default function useFeedbackWidget({
   buttonRef,
   options = {},
 }: Props) {
-  const feedback = Sentry.getFeedback();
+  const [feedback, setFeedback] = useState();
+  // Read `getFeedback` on the client only, to avoid hydration errors when server rendering
+  useEffect(() => {
+    setFeedback(Sentry.getFeedback());
+  }, []);
 
   useEffect(() => {
     if (!feedback) {

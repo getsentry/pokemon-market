@@ -47,6 +47,11 @@ export default function About() {
         <li>
           <strong>User Feedback</strong> If you change currency into GBP you will notice that the price for Pikachu is not a good deal. This is a good reason to submit a Bug Report / User Feedback.
         </li>
+        <li>
+          <Link href="/feedback" className="text-blue underline">
+            Tests the User Feedback integration
+          </Link>
+        </li>
       </ul>
     </div>
   );

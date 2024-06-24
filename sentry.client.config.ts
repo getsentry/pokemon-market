@@ -34,6 +34,7 @@ Sentry.init({
     }),
 
     Sentry.feedbackIntegration({
+      autoInject: false,
       colorScheme: "light",
       showScreenshot: true,
       themeLight: {

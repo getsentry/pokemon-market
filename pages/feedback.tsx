@@ -2,6 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import FeedbackButton from "@/components/FeedbackButton";
 import * as Sentry from "@sentry/nextjs";
 
+type FeedbackIntegration = ReturnType<typeof Sentry.getFeedback>;
+type FeedbackWidget = any; // Should be something like ReturnType<FeedbackIntegration['createWidget']>;
+
 export default function Feedback() {
   return (
     <div className="m-auto max-w-screen-lg">
@@ -35,13 +38,13 @@ export default function Feedback() {
 }
 
 function ToggleFeedbackButton() {
-  const [feedback, setFeedback] = useState();
+  const [feedback, setFeedback] = useState<FeedbackIntegration>();
   // Read `getFeedback` on the client only, to avoid hydration errors when server rendering
   useEffect(() => {
     setFeedback(Sentry.getFeedback());
   }, []);
 
-  const [widget, setWidget] = useState();
+  const [widget, setWidget] = useState<FeedbackWidget>();
   return (
     <button
       className="hover:bg-hover px-4 py-2 rounded-md"
@@ -50,7 +53,7 @@ function ToggleFeedbackButton() {
         if (widget) {
           widget.removeFromDom();
           setWidget(null);
-        } else {
+        } else if (feedback) {
           setWidget(feedback.createWidget({
             tags: {component: 'ToggleFeedbackButton'}
           }));
@@ -63,15 +66,15 @@ function ToggleFeedbackButton() {
 }
 
 function AttachToFeedbackButton() {
-  const [feedback, setFeedback] = useState();
+  const [feedback, setFeedback] = useState<FeedbackIntegration>();
   // Read `getFeedback` on the client only, to avoid hydration errors when server rendering
   useEffect(() => {
     setFeedback(Sentry.getFeedback());
   }, []);
 
-  const buttonRef = useRef();
+  const buttonRef = useRef<HTMLButtonElement>(null);
   useEffect(() => {
-    if (feedback) {
+    if (feedback && buttonRef.current) {
       const unsubscribe = feedback.attachTo(buttonRef.current, {
         tags: {component: 'AttachToFeedbackButton'}
       })
@@ -92,7 +95,7 @@ function AttachToFeedbackButton() {
 }
 
 function CreateFeedbackFromButton() {
-  const [feedback, setFeedback] = useState();
+  const [feedback, setFeedback] = useState<FeedbackIntegration>();
   // Read `getFeedback` on the client only, to avoid hydration errors when server rendering
   useEffect(() => {
     setFeedback(Sentry.getFeedback());
@@ -127,21 +130,23 @@ function MyFeedbackForm() {
       const formData = new FormData(event.currentTarget);
       
       const attachment = async () => {
+        const attatchmentField = formData.get("attachment") as File;
         const data = new Uint8Array(
-          await formData.get("attachment").arrayBuffer()
+          await attatchmentField.arrayBuffer()
         );
         const attachmentData = {
           data,
-          ...formData.get("attachment"),
+          filename: 'upload', // Or pass attatchmentField.name,
+          // No need to set `contentType` because it's encoded in the `data` array
         };
         return attachmentData;
       };
       
       Sentry.getCurrentScope().setTags({component: 'MyFeedbackForm'});
       Sentry.captureFeedback({
-        name: formData.get('name'),
-        email: formData.get('email'),
-        message: formData.get('message'),
+        name: String(formData.get('name')),
+        email: String(formData.get('email')),
+        message: String(formData.get('message')),
       }, {
         attachments: [await attachment()],
       });

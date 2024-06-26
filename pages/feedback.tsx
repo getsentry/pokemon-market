@@ -123,6 +123,7 @@ function CreateFeedbackFromButton() {
 function MyFeedbackForm() {
   return (
     <form id="my-feedback-form" onSubmit={async event => {
+      event.preventDefault();
       const formData = new FormData(event.currentTarget);
       
       const attachment = async () => {
@@ -144,7 +145,6 @@ function MyFeedbackForm() {
       }, {
         attachments: [await attachment()],
       });
-      event.preventDefault();
     }}>
       <input name="name" placeholder="Your Name" />
       <input name="email" placeholder="Your Email" />

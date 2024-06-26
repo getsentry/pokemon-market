@@ -33,14 +33,18 @@ Sentry.init({
       networkCaptureBodies: true,
     }),
 
-    // Sentry.feedbackIntegration({
-    //   colorScheme: "light",
-    //   showScreenshot: true,
-    //   themeLight: {
-    //     submitBackground: "rgb(235,20,20)",
-    //     submitBackgroundHover: "rgb(140,0,0)",
-    //     submitBorder: "rgb (0,0,0)",
-    //   },
-    // }),
+    Sentry.feedbackIntegration({
+      autoInject: false,
+      colorScheme: "light",
+      showScreenshot: true,
+      themeLight: {
+        accentForeground: "#ffffff",
+        accentBackground: "rgb(235,20,20)",
+      },
+      tags: {
+        appName: 'pokemon-market',
+        component: 'autoInjected'
+      }
+    }),
   ],
 });

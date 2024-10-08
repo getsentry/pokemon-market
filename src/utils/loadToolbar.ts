@@ -54,6 +54,6 @@ async function lazyLoad(signal: AbortSignal, url: string): Promise<void> {
     await waitForLoad;
   } catch (error) {
     console.log(error);
-    throw new Error(`Error when loading integration: ${path}`);
+    throw new Error(`Error when loading integration: ${url}`);
   }
 }

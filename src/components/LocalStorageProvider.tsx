@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useCallback, useContext, useEffect, useState } from "react";
+import { createContext, ReactNode, useCallback, useEffect, useState } from "react";
 
 function useReadLocalStorage() {
   const [value, setValue] = useState<Record<string, unknown>>({});

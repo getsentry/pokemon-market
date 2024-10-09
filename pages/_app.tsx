@@ -53,7 +53,7 @@ function AppProviders({children}: PropsWithChildren) {
       theme: 'light',
 
       // Debug
-      debug: true,
+      debug: process.env.NEXT_PUBLIC_DEBUG === 'true',
     }
   });
 

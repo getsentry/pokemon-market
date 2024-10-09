@@ -27,7 +27,7 @@ function useReadLocalStorage() {
 }
 
 interface ProviderProps {
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 export const LocalStorageContext = createContext<

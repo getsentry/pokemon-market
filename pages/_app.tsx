@@ -1,12 +1,12 @@
 import './globals.css';
 
 import { NextPage } from "next";
-import { ReactNode, PropsWithChildren, ReactElement, useEffect } from "react";
+import { ReactNode, PropsWithChildren, ReactElement } from "react";
 import type { AppProps } from "next/app";
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
 import { DefaultLayout } from '@/components/DefaultLayout';
 import { LocalStorageContextProvider } from '@/components/LocalStorageProvider';
-import { loadToolbar } from '@/utils/loadToolbar';
+import useSentryToolbar from '@/toolbar/useSentryToolbar';
 
 type GetLayout = (props: {page: ReactElement}) => ReactNode
 
@@ -62,33 +62,4 @@ function AppProviders({children}: PropsWithChildren) {
       <LocalStorageContextProvider>{children}</LocalStorageContextProvider>
     </QueryClientProvider>
   );
-}
-
-type InitProps = Parameters<Awaited<ReturnType<typeof loadToolbar>>['init']>[0]
-function useSentryToolbar({
-  enabled,
-  cdn = 'https://browser.sentry-cdn.com/sentry-toolbar/latest/toolbar.min.js',
-  initProps,
-}: {
-  enabled: boolean;
-  cdn: string;
-  initProps: InitProps,
-}) {
-  useEffect(() => {
-    if (!enabled) {
-      return;
-    }
-
-    const controller = new AbortController();
-
-    let cleanup: Function | undefined = undefined;
-    loadToolbar(controller.signal, cdn).then(SentryToolbar => {
-      cleanup = SentryToolbar.init(initProps);
-    });
-
-    return () => {
-      controller.abort();
-      cleanup?.();
-    }
-  }, [enabled, cdn]);
 }

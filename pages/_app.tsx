@@ -29,7 +29,7 @@ const queryClient = new QueryClient();
 function AppProviders({children}: PropsWithChildren) {
   useSentryToolbar({
     // Bootstrap config
-    cdn: 'https://browser.sentry-cdn.com/sentry-toolbar/latest/toolbar.min.js',
+    cdn: process.env.NEXT_PUBLIC_TOOLBAR_SRC || 'https://browser.sentry-cdn.com/sentry-toolbar/latest/toolbar.min.js',
     enabled: true,
     initProps: {
       // InitProps

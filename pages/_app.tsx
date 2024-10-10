@@ -36,14 +36,15 @@ function AppProviders({children}: PropsWithChildren) {
       mountPoint: () => document.body,
 
       // ConnectionConfig
-      sentryOrigin: 'https://sentry.io',
+      sentryOrigin: 'https://sentry-test.sentry.io',
       sentryRegion: 'us',
+      sentryApiPath: '/api/0',
 
       // FeatureFlagsConfig
       featureFlags: undefined,
 
       // OrgConfig
-      organizationIdOrSlug: 'sentry-test',
+      organizationSlug: 'sentry-test',
       projectIdOrSlug: 'pokemart',
       environment: ['prod', 'development'],
 

@@ -1,9 +1,9 @@
 import useSentryToolbar from "@/toolbar/useSentryToolbar";
-import { createContext, ReactNode } from "react";
+import { ReactNode } from "react";
 import useLogin from "./useLogin";
 
 interface Props {
-  children: ReactNode
+  children?: ReactNode
 }
 
 export default function ToolbarProvider({children}: Props) {

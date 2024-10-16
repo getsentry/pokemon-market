@@ -8,6 +8,7 @@ import { DefaultLayout } from '@/components/DefaultLayout';
 import { LocalStorageContextProvider } from '@/components/LocalStorageProvider';
 import { LoginContextProvider } from '@/components/useLogin';
 import ToolbarProvider from '@/components/ToolbarProvider';
+import SpotlightProvider from '@/components/SpotlightProvider';
 
 type GetLayout = (props: {page: ReactElement}) => ReactNode
 
@@ -33,7 +34,9 @@ function AppProviders({children}: PropsWithChildren) {
       <LoginContextProvider>
         <QueryClientProvider client={queryClient}>
           <ToolbarProvider>
-            {children}
+            <SpotlightProvider>
+              {children}
+            </SpotlightProvider>
           </ToolbarProvider>
         </QueryClientProvider>
       </LoginContextProvider>

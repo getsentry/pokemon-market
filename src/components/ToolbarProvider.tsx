@@ -11,24 +11,24 @@ export default function ToolbarProvider({children}: Props) {
 
   useSentryToolbar({
     // Bootstrap config
-    cdn: process.env.NEXT_PUBLIC_TOOLBAR_SRC || 'https://browser.sentry-cdn.com/sentry-toolbar/latest/toolbar.min.js',
+    cdn: process.env.NEXT_PUBLIC_TOOLBAR_SRC ?? 'https://browser.sentry-cdn.com/sentry-toolbar/latest/toolbar.min.js',
     enabled: isLoggedIn,
     initProps: {
       // InitProps
       mountPoint: () => document.body,
 
       // ConnectionConfig
-      sentryOrigin: 'https://sentry-test.sentry.io',
-      sentryRegion: 'us',
-      sentryApiPath: '/api/0',
+      sentryOrigin: process.env.NEXT_PUBLIC_SENTRY_ORIGIN ?? 'https://sentry-test.sentry.io',
+      sentryRegion: process.env.NEXT_PUBLIC_SENTRY_REGION ?? 'us',
+      sentryApiPath: process.env.NEXT_PUBLIC_SENTRY_API_PATH ?? '/api/0',
 
       // FeatureFlagsConfig
       featureFlags: undefined,
 
       // OrgConfig
-      organizationSlug: 'sentry-test',
-      projectIdOrSlug: 'pokemart',
-      environment: ['prod', 'development'],
+      organizationSlug: process.env.NEXT_PUBLIC_SENTRY_ORGANIZATION ?? 'sentry-test',
+      projectIdOrSlug:process.env.NEXT_PUBLIC_SENTRY_PROJECT ?? 'pokemart',
+      environment: process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT ? [process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT] : ['prod', 'development'],
 
       // RenderConfig
       domId: 'sentry-toolbar',

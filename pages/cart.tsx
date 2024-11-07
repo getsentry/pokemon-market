@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from "react";
+import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { useMutation } from "@tanstack/react-query";
 import apiPost from "@/components/apiPost";
 import CartItem from "@/components/CartItem";
@@ -8,10 +8,41 @@ import useShoppingCart from "@/components/useShoppingCart";
 import {MdErrorOutline} from 'react-icons/md';
 import {BsCheck2Circle} from 'react-icons/bs';
 
+import * as LDClient from 'launchdarkly-js-client-sdk';
+import type { LDClient as LDClientType } from "launchdarkly-js-client-sdk";
+import { buildSentryFlagUsedInspector } from "@sentry/launchdarkly";
+
+import * as Sentry from '@sentry/nextjs';
+
 export default function CartPage() {
+  const [ldClient, setLdClient] = useState<LDClientType | undefined>(undefined);
+  useEffect(() => {
+    const ldContext = {
+      kind: 'user',
+      key: 'example-user-key', // created in LD UI. name = "Sandy"
+    };
+    const client = LDClient.initialize(
+      '671817589c4862086dad9d3c', // client-side ID
+      ldContext,
+      {
+        inspectors: [buildSentryFlagUsedInspector()]
+      }
+    );
+    client.on('ready', () => {
+      console.log("[LaunchDarkly] LD CLIENT READY");
+    });
+
+    setLdClient(client);
+
+    return () => {client.close()};
+  }, []);
+  
+
   const { trimCart, clearCart, cart } = useShoppingCart();
 
   useEffect(trimCart, []); // eslint-disable-line react-hooks/exhaustive-deps
+  // const ldClient = useLDClient();
+  // console.log(ldClient);
 
   const submitCart = useMutation({
     mutationFn: (body: BodyInit) => apiPost("/api/store/buy", {}, body),
@@ -40,6 +71,20 @@ export default function CartPage() {
     </div>
   );
 
+  const onSubmit = useCallback((e) => {
+    const flagResult = ldClient?.variation('checkout-button-alert', false)
+    console.log(`[LaunchDarkly] alert flag result: ${flagResult}`);
+    if (flagResult) {
+      alert('Confirming your order - your pokemon are on the way!');
+    }
+
+    const scopeFlags = Sentry.getCurrentScope().getScopeData().contexts.flags;
+    console.log(scopeFlags);
+
+    submitCart.mutate(JSON.stringify(cart));
+    e.preventDefault();
+  }, [ldClient, cart, submitCart]);
+
   if (cart.length) {
     return (
       <ShoppingCart>
@@ -52,10 +97,7 @@ export default function CartPage() {
         </CartItems>
         <form
           className="p-4 self-end"
-          onSubmit={(e) => {
-            submitCart.mutate(JSON.stringify(cart));
-            e.preventDefault();
-          }}
+          onSubmit={onSubmit}
         >
           <CheckoutButton />
         </form>

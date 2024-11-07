@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@opentelemetry/api": "^1.8.0",
+    "@sentry/launchdarkly": "file:.yalc/@sentry/launchdarkly",
     "@sentry/nextjs": "8.11.0",
     "@spotlightjs/spotlight": "^2.5.0",
     "@tanstack/react-query": "^4.36.1",
@@ -39,6 +40,7 @@
     "country-flag-icons": "^1.5.7",
     "eslint": "8.44.0",
     "eslint-config-next": "13.4.9",
+    "launchdarkly-js-client-sdk": "^3.5.0",
     "next": "13.4.9",
     "next-absolute-url": "^1.2.2",
     "pokenode-ts": "^1.20.0",

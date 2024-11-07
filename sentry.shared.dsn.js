@@ -16,4 +16,4 @@ const keys = {
 
 // Remember to update next.config.js to match the selected org & project
 // And clear `.sentryclirc` of tokens from other orgs.
-export default keys["sentry-test/pokemart"].dsn;
+export default 'https://665525997e6f741a3791d0cfa83daca3@o1.ingest.us.sentry.io/4507965708632064';

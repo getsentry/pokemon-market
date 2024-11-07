@@ -5,6 +5,8 @@
 import * as Sentry from "@sentry/nextjs";
 import dsn from "./sentry.shared.dsn";
 
+import {buildLaunchDarklyIntegration} from '@sentry/launchdarkly';
+
 Sentry.init({
   dsn,
 
@@ -19,32 +21,6 @@ Sentry.init({
   replaysSessionSampleRate: 1.0,
 
   integrations: [
-    Sentry.replayIntegration({
-      maskAllText: true,
-      unmask: ["aside", "header", "nav"],
-      blockAllMedia: true,
-      unblock: [],
-
-      networkDetailAllowUrls: [window.location.origin],
-      networkDetailDenyUrls: [
-        window.location.origin + "/_next/",
-        window.location.origin + "/monitoring",
-      ],
-      networkCaptureBodies: true,
-    }),
-
-    Sentry.feedbackIntegration({
-      autoInject: false,
-      colorScheme: "light",
-      showScreenshot: true,
-      themeLight: {
-        accentForeground: "#ffffff",
-        accentBackground: "rgb(235,20,20)",
-      },
-      tags: {
-        appName: 'pokemon-market',
-        component: 'autoInjected'
-      }
-    }),
+    buildLaunchDarklyIntegration(),
   ],
 });

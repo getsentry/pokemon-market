@@ -18,7 +18,7 @@ const queries = range(0, 16).map((i) => ({
   limit: Math.min(maxPageSize * (i + 1), totalCardCount) - maxPageSize * i,
 }));
 
-export default function Home() {
+function Home() {
   const router = useRouter();
   const { data } = useQuery<Array<ApiListResult<ListPokemonResponse>>>({
     queryKey: ["/api/pokemon"],
@@ -79,7 +79,10 @@ function Layout({page}: {page: ReactElement}) {
         </div>
       </Nav>
       <main className="px-10 pb-10">{page}</main>
+      {/* // <LDClientContext.Provider value={ldClient}> */}
     </>
   );
 }
+
 Home.Layout = Layout;
+export default Home;

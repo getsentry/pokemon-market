@@ -8,7 +8,7 @@ interface Props {
 
 export default function SpotlightProvider({children}: Props) {
   useEffect(() => {
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === 'development' && localStorage.getItem('enable_spotlight')) {
       import('@spotlightjs/spotlight').then((Spotlight) =>
         Spotlight.init({ injectImmediately: true })
       );

@@ -37,7 +37,7 @@ export function LoginContextProvider({children}: {children?: ReactNode}) {
     set(KEY, '');
   }, [set]);
 
-  const username: LoginState = useMemo(() => get(KEY), [get]);
+  const username: LoginState = useMemo(() => get(KEY) as string, [get]);
 
   return <LoginContext.Provider value={[username, login, logout]}>{children}</LoginContext.Provider>
 }

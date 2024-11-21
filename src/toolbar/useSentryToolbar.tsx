@@ -3,14 +3,12 @@ import { loadToolbar } from '@/toolbar/loadToolbar';
 
 type InitProps = Parameters<Awaited<ReturnType<typeof loadToolbar>>['init']>[0]
 export default function useSentryToolbar({
-  enabled,
-  cdn = 'https://browser.sentry-cdn.com/sentry-toolbar/latest/toolbar.min.js',
-  initProps,
+  enabled, cdn = 'https://browser.sentry-cdn.com/sentry-toolbar/latest/toolbar.min.js', initProps,
 }: {
   enabled: boolean;
   cdn: string;
-  initProps: InitProps,
-}) {
+  initProps: InitProps;
+}, p0: never[]) {
   useEffect(() => {
     if (!enabled) {
       return;

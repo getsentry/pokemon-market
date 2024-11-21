@@ -38,7 +38,7 @@ export default function ToolbarProvider({children}: Props) {
       // Debug
       debug: process.env.NEXT_PUBLIC_DEBUG === 'true',
     }
-  });
+  }, []);
 
   return children
 }

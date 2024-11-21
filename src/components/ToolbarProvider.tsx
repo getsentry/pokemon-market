@@ -28,7 +28,7 @@ export default function ToolbarProvider({children}: Props) {
       // OrgConfig
       organizationSlug: process.env.NEXT_PUBLIC_SENTRY_ORGANIZATION ?? 'sentry-test',
       projectIdOrSlug:process.env.NEXT_PUBLIC_SENTRY_PROJECT ?? 'pokemart',
-      environment: process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT ? [process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT] : ['prod', 'development'],
+      environment: process.env.NEXT_PUBLIC_VERCEL_ENV ? `vercel-${process.env.NEXT_PUBLIC_VERCEL_ENV}` : ['development'],
 
       // RenderConfig
       domId: 'sentry-toolbar',

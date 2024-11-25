@@ -19,7 +19,6 @@ export default function ToolbarProvider({children}: Props) {
 
       // ConnectionConfig
       sentryOrigin: process.env.NEXT_PUBLIC_SENTRY_ORIGIN ?? 'https://sentry-test.sentry.io',
-      sentryRegion: process.env.NEXT_PUBLIC_SENTRY_REGION ?? 'us',
       sentryApiPath: process.env.NEXT_PUBLIC_SENTRY_API_PATH ?? '/api/0',
 
       // FeatureFlagsConfig
@@ -36,7 +35,7 @@ export default function ToolbarProvider({children}: Props) {
       theme: 'light',
 
       // Debug
-      debug: process.env.NEXT_PUBLIC_DEBUG === 'true',
+      debug: process.env.NEXT_PUBLIC_DEBUG,
     }
   }, []);
 

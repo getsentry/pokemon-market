@@ -1,9 +1,9 @@
-interface InitProps extends Record<string, unknown> {
-    rootNode?: HTMLElement | (() => HTMLElement);
-}
-type Cleanup = () => void;
+import type {InitFn, GetVersionFn,  OpenFeatureAdapterFactory} from './types';
+
 type SentryToolbar = {
-  init: (initProps: InitProps) => Cleanup;
+  init: InitFn;
+  getVersion: GetVersionFn;
+  OpenFeatureAdapter: OpenFeatureAdapterFactory;
 };
 
 interface WindowWithMaybeIntegration extends Window {

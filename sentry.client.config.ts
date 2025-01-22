@@ -42,9 +42,12 @@ Sentry.init({
         accentBackground: "rgb(235,20,20)",
       },
       tags: {
-        appName: 'pokemon-market',
-        component: 'autoInjected'
-      }
+        appName: "pokemon-market",
+        component: "autoInjected",
+      },
+      _experiments: {
+        annotations: true,
+      },
     }),
   ],
 });

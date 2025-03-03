@@ -42,3 +42,7 @@ next-env.d.ts
 
 # yarn
 /.yarn/
+
+# yalc
+yalc.lock
+/.yalc/

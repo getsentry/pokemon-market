@@ -1,4 +1,4 @@
-import useSentryToolbar from "@/toolbar/useSentryToolbar";
+import {useSentryToolbar} from "@sentry/toolbar";
 import { ReactNode } from "react";
 import useLogin from "./useLogin";
 
@@ -6,7 +6,7 @@ interface Props {
   children?: ReactNode
 }
 
-export default function ToolbarProvider({children}: Props) {
+export default function SentryToolbar({children}: Props) {
   const {isLoggedIn} = useLogin();
 
   useSentryToolbar({

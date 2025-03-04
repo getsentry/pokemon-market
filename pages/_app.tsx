@@ -7,7 +7,7 @@ import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
 import { DefaultLayout } from '@/components/DefaultLayout';
 import { LocalStorageContextProvider } from '@/components/LocalStorageProvider';
 import { LoginContextProvider } from '@/components/useLogin';
-import ToolbarProvider from '@/components/ToolbarProvider';
+import SentryToolbar from '@/components/SentryToolbar';
 import SpotlightProvider from '@/components/SpotlightProvider';
 
 type GetLayout = (props: {page: ReactElement}) => ReactNode
@@ -33,11 +33,11 @@ function AppProviders({children}: PropsWithChildren) {
     <LocalStorageContextProvider>
       <LoginContextProvider>
         <QueryClientProvider client={queryClient}>
-          <ToolbarProvider>
+          <SentryToolbar>
             <SpotlightProvider>
               {children}
             </SpotlightProvider>
-          </ToolbarProvider>
+          </SentryToolbar>
         </QueryClientProvider>
       </LoginContextProvider>
     </LocalStorageContextProvider>

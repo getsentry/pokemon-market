@@ -9,7 +9,6 @@ import Nav from "@/components/Nav";
 import type { ApiListResult } from "@/api/jsonList";
 import type { ListPokemonResponse } from "@/types";
 import PokemonList from "@/components/PokemonList";
-import useSentryToolbar from "@/toolbar/useSentryToolbar";
 
 const totalCardCount = 151;
 const maxPageSize = 10;

@@ -36,7 +36,7 @@ export default function SentryToolbar({children}: Props) {
       // Debug
       debug: process.env.NEXT_PUBLIC_DEBUG,
     }
-  }, []);
+  });
 
   return children
 }

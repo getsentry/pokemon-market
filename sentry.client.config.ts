@@ -4,6 +4,7 @@
 
 import * as Sentry from "@sentry/nextjs";
 import dsn from "./sentry.shared.dsn";
+import { UnleashClient } from "unleash-proxy-client";
 
 Sentry.init({
   dsn,
@@ -19,6 +20,8 @@ Sentry.init({
   replaysSessionSampleRate: 1.0,
 
   integrations: [
+    Sentry.unleashIntegration({ featureFlagClientClass: UnleashClient }),
+
     Sentry.replayIntegration({
       maskAllText: true,
       unmask: ["aside", "header", "nav"],

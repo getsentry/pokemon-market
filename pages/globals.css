@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+html, body, #__next {
+  min-height: 100vh;
+}
+#__next {
+  display: grid;
+  grid-template-rows: repeat(3, max-content) 1fr;
+}
+
 ul,
 ol,
 li {

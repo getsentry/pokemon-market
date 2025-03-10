@@ -1,22 +1,32 @@
+import cx from "classnames";
 import { SinglePokemonResponse } from "@/types";
 import HomePageItem from "@/components/HomePageItem";
+import useIsDarkMode from "./useIsDarkMode";
 
 interface Props {
   pokemonList: SinglePokemonResponse[];
 }
 
 export default function PokemonList({pokemonList}: Props) {
-  const remainder = 4 - (pokemonList.length % 4);
+  const {isDarkMode} = useIsDarkMode();
 
+  const remainder = 4 - (pokemonList.length % 4);
   console.log({remainder});
 
   return (
     <div>
-      <ul className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-px bg-black p-px">
+      <ul
+        className={cx(
+          "grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-px p-px",
+          isDarkMode ? "bg-white": "bg-black"
+        )}>
         {pokemonList?.map(({ pokemon, species, evolution }, index) => (
           <li
             key={pokemon?.name ?? "missing-" + index}
-            className={"flex bg-white hover:bg-hover"}
+            className={cx(
+              "flex", 
+              isDarkMode ? "bg-black text-white": "bg-white hover:bg-hover"
+            )}
           >
             <HomePageItem
               pokemon={pokemon}

@@ -19,6 +19,19 @@ For Demo purposes, build and run the production server (see below).
 Afterwards, visit your sentry org (in step #1) to view Replays, Perfomance, and 
 Error from the demo.
 
+#### Local Unleashed server
+
+```
+git clone git@github.com:Unleash/unleash.gi
+cd unleash
+docker compose up -d
+```
+
+Then point your browser to localhost:4242 and log in using:
+
+username: `admin`
+password: `unleash4all`
+
 ### Production
 
 The __production server__ is optimized for demo purposes because it includes:
@@ -33,4 +46,3 @@ The __production server__ is optimized for demo purposes because it includes:
 
 Afterwards, visit your sentry org (in step #1) to view Replays, Perfomance, and
 Error from the demo.
-

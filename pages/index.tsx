@@ -1,3 +1,4 @@
+import cx from "classnames";
 import { range } from "@/utils/array/range";
 import { ReactElement } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -9,6 +10,8 @@ import Nav from "@/components/Nav";
 import type { ApiListResult } from "@/api/jsonList";
 import type { ListPokemonResponse } from "@/types";
 import PokemonList from "@/components/PokemonList";
+import useIsDarkMode from "@/components/useIsDarkMode";
+import { useFlag } from "@unleash/nextjs/client";
 
 const totalCardCount = 151;
 const maxPageSize = 10;
@@ -53,6 +56,10 @@ export default function Home() {
 function Layout({page}: {page: ReactElement}) {
   const router = useRouter();
 
+  const {isDarkMode} = useIsDarkMode();
+
+  useFlag('pokemon-count');
+
   return (
     <>
       <Head>
@@ -77,7 +84,13 @@ function Layout({page}: {page: ReactElement}) {
           />
         </div>
       </Nav>
-      <main className="px-10 pb-10">{page}</main>
+      <main
+        className={cx(
+          "px-10 pb-10 min-h-full",
+          isDarkMode ? 'bg-black text-white' : 'bg-white text-black',
+        )}>
+          {page}
+      </main>
     </>
   );
 }

@@ -1,19 +1,22 @@
 import {useSentryToolbar} from "@sentry/toolbar";
-import { ReactNode } from "react";
+import { ReactNode, useMemo } from "react";
 import useLogin from "./useLogin";
+import {getUnleashFlagAdapter} from "../unleash-adapter";
+import type { UnleashClient } from 'unleash-proxy-client';
 
 interface Props {
-  children?: ReactNode
+  children?: ReactNode;
+  unleashClient?: UnleashClient;
 }
 
-export default function SentryToolbar({children}: Props) {
+export default function SentryToolbar({children, unleashClient}: Props) {
   const {isLoggedIn} = useLogin();
 
-  useSentryToolbar({
+  useSentryToolbar(useMemo(() => ({
     // Bootstrap config
     cdn: process.env.NEXT_PUBLIC_TOOLBAR_SRC ?? 'https://browser.sentry-cdn.com/sentry-toolbar/latest/toolbar.min.js',
     enabled: isLoggedIn,
-    initProps: {
+    initProps: (SentryToolbar) => ({
       // InitProps
       mountPoint: () => document.body,
 
@@ -21,7 +24,7 @@ export default function SentryToolbar({children}: Props) {
       sentryOrigin: process.env.NEXT_PUBLIC_SENTRY_ORIGIN,
 
       // FeatureFlagsConfig
-      featureFlags: undefined,
+      featureFlags: getUnleashFlagAdapter(unleashClient),
 
       // OrgConfig
       organizationSlug: process.env.NEXT_PUBLIC_SENTRY_ORGANIZATION ?? 'sentry-test',
@@ -35,8 +38,8 @@ export default function SentryToolbar({children}: Props) {
 
       // Debug
       debug: process.env.NEXT_PUBLIC_DEBUG,
-    }
-  });
+    }),
+  }), [isLoggedIn, unleashClient]));
 
   return children
 }

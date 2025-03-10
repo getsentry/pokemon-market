@@ -2,6 +2,8 @@ import { ReactNode } from "react";
 import { useRouter } from "next/router";
 import cx from "classnames";
 import Link from "next/link";
+import useIsDarkMode from "./useIsDarkMode";
+import { useFlag } from "@unleash/nextjs/client";
 
 interface Props {
   children?: ReactNode;
@@ -10,8 +12,15 @@ interface Props {
 export default function Nav({children}: Props) {
   const {pathname} = useRouter();
   
+  const {isDarkMode} = useIsDarkMode();
+  useFlag('on-sale');
+
   return (
-    <nav className="flex px-10 py-5 bg-white text-black">
+    <nav
+      className={cx(
+        "flex px-10 py-5",
+        isDarkMode ? 'bg-black text-white' : 'bg-white text-black'
+      )}>
       <ul className="flex gap-4">
         <li>
           <Link href="/" title="Go to homepage">

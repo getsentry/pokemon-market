@@ -1,3 +1,4 @@
+import { useFlag } from "@unleash/nextjs/client";
 import { BsShop } from "react-icons/bs";
 import { Fragment } from "react";
 import { useRouter } from "next/router";
@@ -11,21 +12,23 @@ import FeedbackButton from "./FeedbackButton";
 export default function Header() {
   const {pathname} = useRouter();
 
+  useFlag('enable-feedback');
+
   return (
     <Fragment>
-      <aside className="flex px-10 py-1 bg-darkRed text-white font-thin">
+      <aside
+        className={cx(
+          "flex px-10 py-1 font-thin",
+           "bg-darkRed text-white",
+        )}>
         <ul className="flex flex-grow items-center justify-start gap-4">
           <li>
             <Link href="/about" title="About the PokeMart">
               <div
                 className={cx(
                   { underline: pathname === "/about" },
-                  "hover:bg-red",
-                  "text-white",
-                  "px-2",
-                  "py-1",
-                  "rounded-md",
-                  "text-md block"
+                  "px-2 py-1 rounded-md text-md block",
+                   "hover:bg-red text-white",
                 )}
               >
                 About

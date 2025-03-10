@@ -5,6 +5,7 @@ import Media from "@/components/Media.module.css";
 import cx from "classnames";
 import { ReactNode } from "react";
 import { ApiPokemon } from "@/types";
+import useIsDarkMode from "./useIsDarkMode";
 
 interface Props {
   className?: string;
@@ -13,6 +14,8 @@ interface Props {
 }
 
 export default function PokemonCardView({ className, children, pokemon }: Props) {
+  const {isDarkMode} = useIsDarkMode();
+  
   return (
     <div className={cx(Media.layout, className, "grow", "gap-x-2", "p-4")}>
       <div className={Media.img}>

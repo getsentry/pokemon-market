@@ -7,6 +7,9 @@ import cx from 'classnames';
 import useShoppingCart from "@/components/useShoppingCart";
 import {MdErrorOutline} from 'react-icons/md';
 import {BsCheck2Circle} from 'react-icons/bs';
+import useIsDarkMode from "@/components/useIsDarkMode";
+import invariant from "invariant";
+import { ErrorBoundary } from "react-error-boundary";
 
 export default function CartPage() {
   const { trimCart, clearCart, cart } = useShoppingCart();
@@ -42,50 +45,75 @@ export default function CartPage() {
 
   if (cart.length) {
     return (
+      <ErrorBoundary fallback={<div>Error</div>}>
       <ShoppingCart>
-        <CartItems>
-          {cart.map(([pokemonName, amount], index) => (
-            <li key={`${pokemonName}-${amount}-${index}`} className="contents">
-              <CartItem pokemonName={pokemonName} amount={amount} />
-            </li>
-          ))}
-        </CartItems>
-        <form
-          className="p-4 self-end"
-          onSubmit={(e) => {
-            submitCart.mutate(JSON.stringify(cart));
-            e.preventDefault();
-          }}
-        >
-          <CheckoutButton />
-        </form>
+          <CartItems>
+            {cart.map(([pokemonName, amount], index) => (
+              <li key={`${pokemonName}-${amount}-${index}`} className="contents">
+                <CartItem pokemonName={pokemonName} amount={amount} />
+              </li>
+            ))}
+          </CartItems>
+          <form
+            className="p-4 self-end"
+            onSubmit={(e) => {
+              submitCart.mutate(JSON.stringify(cart));
+              e.preventDefault();
+            }}
+          >
+            <CheckoutButton />
+          </form>
 
-        {statusSection}
-      </ShoppingCart>
+          {statusSection}
+        </ShoppingCart>
+      </ErrorBoundary>
     );
   }
   return (
-    <ShoppingCart className="gap-6">
-      <div>
-        <ul className="grid md:grid-cols-2 grid-cols-1 gap-px bg-black p-px">
-          <li className="flex grow bg-white h-32 col-span-full place-content-center place-items-center">
-            Your Cart is Empty!
-          </li>
-        </ul>
-      </div>
+    <ErrorBoundary>
+      <ShoppingCart className="gap-6">
+        <div>
+          <ul className="grid md:grid-cols-2 grid-cols-1 gap-px bg-black p-px">
+            <li className="flex grow bg-white h-32 col-span-full place-content-center place-items-center">
+              Your Cart is Empty!
+            </li>
+          </ul>
+        </div>
 
-      {statusSection}
-    </ShoppingCart>
+        {statusSection}
+      </ShoppingCart>
+    </ErrorBoundary>
   );
 }
 
 function ShoppingCart({children, className}: {children: ReactNode[], className?: string}) {
+  const {isDarkMode} = useIsDarkMode();
+
+  console.log('cart', {isDarkMode});
+  const colors = {
+    'light': {
+      'bg-red': 'bg-red',
+      'bg-darkRed': 'bg-darkRed',
+      'bg-green': 'bg-green',
+      'bg-white': 'bg-white',
+      'bg-black': 'bg-black',
+    }
+  }
+  const textColor = colors[isDarkMode ? 'dark' : 'light'];
+  
+  useEffect(() => {
+    invariant(textColor, 'textColor is not defined');
+    console.log('textColor', textColor);
+  }, [textColor]);
+
+
   return (
     <div className={cx("m-auto max-w-screen-lg flex flex-col", className)}>{children}</div>
   );
 }
 
 function CartItems({children}: {children: ReactNode[]}) {
+  
   return (
     <ul
       className={cx(

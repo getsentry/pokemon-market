@@ -25,6 +25,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@openfeature/core": "^1.7.2",
+    "@openfeature/unleash-web-provider": "^0.1.1",
+    "@openfeature/web-sdk": "^1.4.1",
     "@opentelemetry/api": "^1.8.0",
     "@opentelemetry/core": "^1.30.1",
     "@opentelemetry/sdk-trace-base": "^1.30.1",
@@ -35,6 +38,7 @@
     "@types/node": "20.4.1",
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
+    "@unleash/nextjs": "^1.6.1",
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
     "axios-cache-interceptor": "^1.2.0",
@@ -42,6 +46,7 @@
     "country-flag-icons": "^1.5.7",
     "eslint": "8.44.0",
     "eslint-config-next": "13.4.9",
+    "invariant": "^2.2.4",
     "next": "13.4.9",
     "next-absolute-url": "^1.2.2",
     "pokenode-ts": "^1.20.0",
@@ -49,16 +54,19 @@
     "query-string": "^8.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-error-boundary": "^5.0.0",
     "react-icons": "^4.11.0",
     "serialize-error": "^11.0.3",
     "tailwindcss": "3.3.2",
-    "typescript": "5.1.6"
+    "typescript": "5.1.6",
+    "unleash-proxy-client": "^3.7.3"
   },
   "volta": {
     "node": "20.4.0",
     "yarn": "4.1.1"
   },
   "devDependencies": {
-    "@sentry/babel-plugin-component-annotate": "^2.16.1"
+    "@sentry/babel-plugin-component-annotate": "^2.16.1",
+    "@types/invariant": "^2"
   }
 }

@@ -1,12 +1,14 @@
 import type {FeatureFlagAdapter} from "@sentry/toolbar";
 
+let isCleared = false;
+
 const stubFeatureFlagAdapter: FeatureFlagAdapter = {
   getFlagMap: () => ({}),
-  getOverrides: () => ({
+  getOverrides: () => (isCleared ? {} : {
     foo: true
   }),
   setOverride: () => {},
-  clearOverrides: () => {},
+  clearOverrides: () => { isCleared = true},
 };
 
 export default stubFeatureFlagAdapter;

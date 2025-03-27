@@ -15,7 +15,6 @@
   "author": "Ryan Albrecht <ryan.albrecht@sentry.io>",
   "engines": {
     "node": ">=18",
-    "npm": "USE YARN",
     "yarn": ">=1.20"
   },
   "scripts": {
@@ -23,7 +22,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "dev:yalc": "nodemon --exec \"yarn install --ignore-engines && yarn dev\" --watch .yalc"
+    "dev:yalc": "nodemon --exec \"$(volta which yarn) install && $(volta which yarn) dev\" --watch .yalc"
   },
   "dependencies": {
     "@opentelemetry/api": "^1.8.0",

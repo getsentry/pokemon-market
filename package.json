@@ -22,7 +22,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "dev:yalc": "nodemon --exec \"yarn install --ignore-engines && yarn dev\" --watch .yalc"
   },
   "dependencies": {
     "@opentelemetry/api": "^1.8.0",

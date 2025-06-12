@@ -20,7 +20,7 @@ export default function SentryToolbar({children}: Props) {
       mountPoint: () => document.body,
 
       // ConnectionConfig
-      sentryOrigin: process.env.NEXT_PUBLIC_SENTRY_ORIGIN,
+      sentryOrigin: process.env.NEXT_PUBLIC_SENTRY_ORIGIN ?? 'https://sentry-test.sentry.io',
 
       // FeatureFlagsConfig
       featureFlags: getFeatureFlagAdapter(),
@@ -28,7 +28,9 @@ export default function SentryToolbar({children}: Props) {
       // OrgConfig
       organizationSlug: process.env.NEXT_PUBLIC_SENTRY_ORGANIZATION ?? 'sentry-test',
       projectIdOrSlug:process.env.NEXT_PUBLIC_SENTRY_PROJECT ?? 'pokemart',
-      environment: process.env.NEXT_PUBLIC_VERCEL_ENV ? `vercel-${process.env.NEXT_PUBLIC_VERCEL_ENV}` : undefined,
+      environment: process.env.NEXT_PUBLIC_VERCEL_ENV
+        ? `vercel-${process.env.NEXT_PUBLIC_VERCEL_ENV}`
+        : (process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT ?? 'production'),
 
       // RenderConfig
       domId: 'sentry-toolbar',

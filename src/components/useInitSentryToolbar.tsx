@@ -4,11 +4,7 @@ import { ReactNode } from "react";
 import useLogin from "./useLogin";
 import stubFeatureFlagAdapter from "@/components/featureFlags/stubFeatureFlagAdapter";
 
-interface Props {
-  children?: ReactNode
-}
-
-export default function SentryToolbar({children}: Props) {
+export default function useInitSentryToolbar() {
   const {isLoggedIn} = useLogin();
 
   useSentryToolbar({
@@ -41,8 +37,6 @@ export default function SentryToolbar({children}: Props) {
       debug: process.env.NEXT_PUBLIC_DEBUG,
     }
   });
-
-  return children
 }
 
 function getFeatureFlagAdapter(): undefined | FeatureFlagAdapter {

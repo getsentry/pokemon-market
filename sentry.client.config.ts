@@ -4,6 +4,7 @@
 
 import * as Sentry from "@sentry/nextjs";
 import dsn from "./sentry.shared.dsn";
+import { EventHint } from "@sentry/nextjs";
 
 Sentry.init({
   dsn,
@@ -18,6 +19,14 @@ Sentry.init({
 
   replaysSessionSampleRate: 1.0,
 
+  beforeSend(event, hint: EventHint) {
+    // Check if it is an exception, and if so, show the report dialog
+    if (event.exception && event.event_id && hint.data?.useCrashReport) {
+      Sentry.showReportDialog({ eventId: event.event_id });
+    }
+    return event;
+  },
+  
   integrations: [
     Sentry.replayIntegration({
       maskAllText: true,

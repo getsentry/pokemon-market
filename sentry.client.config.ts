@@ -34,7 +34,7 @@ Sentry.init({
       blockAllMedia: true,
       unblock: [],
 
-      networkDetailAllowUrls: [window.location.origin],
+      networkDetailAllowUrls: [window.location.origin, 'https://graphql-pokeapi.graphcdn.app/'],
       networkDetailDenyUrls: [
         window.location.origin + "/_next/",
         window.location.origin + "/monitoring",

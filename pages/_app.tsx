@@ -1,13 +1,14 @@
 import './globals.css';
 
 import { NextPage } from "next";
-import { ReactNode, PropsWithChildren, ReactElement } from "react";
+import { ReactNode, PropsWithChildren, ReactElement, Fragment } from "react";
 import type { AppProps } from "next/app";
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
 import { DefaultLayout } from '@/components/DefaultLayout';
 import { LocalStorageContextProvider } from '@/components/LocalStorageProvider';
 import { LoginContextProvider } from '@/components/useLogin';
 import SpotlightProvider from '@/components/SpotlightProvider';
+import Head from 'next/head';
 
 type GetLayout = (props: {page: ReactElement}) => ReactNode
 
@@ -29,15 +30,22 @@ const queryClient = new QueryClient();
 
 function AppProviders({children}: PropsWithChildren) {
   return (
-    <LocalStorageContextProvider>
-      <LoginContextProvider>
-        <QueryClientProvider client={queryClient}>
-          <SpotlightProvider>
-            {children}
-          </SpotlightProvider>
-        </QueryClientProvider>
-      </LoginContextProvider>
-    </LocalStorageContextProvider>
+    <Fragment>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+      </Head>
+      <LocalStorageContextProvider>
+        <LoginContextProvider>
+          <QueryClientProvider client={queryClient}>
+            <SpotlightProvider>
+              {children}
+            </SpotlightProvider>
+          </QueryClientProvider>
+        </LoginContextProvider>
+      </LocalStorageContextProvider>
+    </Fragment>
   );
 }
 

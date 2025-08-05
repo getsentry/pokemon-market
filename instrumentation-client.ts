@@ -9,6 +9,8 @@ import { EventHint } from "@sentry/nextjs";
 Sentry.init({
   dsn,
 
+  sendDefaultPii: true,
+
   // Adjust this value in production, or use tracesSampler for greater control
   tracesSampleRate: 1,
 
@@ -26,7 +28,7 @@ Sentry.init({
     }
     return event;
   },
-  
+
   integrations: [
     Sentry.replayIntegration({
       maskAllText: true,
@@ -34,7 +36,10 @@ Sentry.init({
       blockAllMedia: true,
       unblock: [],
 
-      networkDetailAllowUrls: [window.location.origin, 'https://graphql-pokeapi.graphcdn.app/'],
+      networkDetailAllowUrls: [
+        window.location.origin,
+        "https://graphql-pokeapi.graphcdn.app/",
+      ],
       networkDetailDenyUrls: [
         window.location.origin + "/_next/",
         window.location.origin + "/monitoring",
@@ -60,3 +65,5 @@ Sentry.init({
     }),
   ],
 });
+
+export const onRouterTransitionStart = Sentry.captureRouterTransitionStart;

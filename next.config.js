@@ -29,4 +29,8 @@ module.exports = withSentryConfig(nextConfig, {
 
   // Automatically tree-shake Sentry logger statements to reduce bundle size
   disableLogger: true,
+
+  reactComponentAnnotation: {
+    enabled: true,
+  },
 });

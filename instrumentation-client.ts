@@ -11,6 +11,8 @@ Sentry.init({
 
   sendDefaultPii: true,
 
+  sampleRate: 1.0,
+
   // Adjust this value in production, or use tracesSampler for greater control
   tracesSampleRate: 1,
 

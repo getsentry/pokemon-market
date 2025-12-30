@@ -1,9 +1,7 @@
 // @ts-check
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    instrumentationHook: true,
-  },
+  experimental: {},
 };
 
 const { withSentryConfig } = require("@sentry/nextjs");

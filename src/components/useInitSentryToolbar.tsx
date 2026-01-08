@@ -4,12 +4,14 @@ import { ReactNode } from "react";
 import useLogin from "./useLogin";
 import stubFeatureFlagAdapter from "@/components/featureFlags/stubFeatureFlagAdapter";
 
+const PROD_VERSION = '1.0.0-beta.22';
+
 export default function useInitSentryToolbar() {
   const {isLoggedIn} = useLogin();
 
   useSentryToolbar({
     // Bootstrap config
-    cdn: process.env.NEXT_PUBLIC_TOOLBAR_SRC ?? 'https://browser.sentry-cdn.com/sentry-toolbar/latest/toolbar.min.js',
+    cdn: process.env.NEXT_PUBLIC_TOOLBAR_SRC ?? `https://browser.sentry-cdn.com/sentry-toolbar/${PROD_VERSION}/toolbar.min.js`,
     enabled: isLoggedIn,
     initProps: {
       // InitProps

@@ -2,7 +2,7 @@ import { useRef } from "react";
 import useFeedbackWidget from "./useFeedbackWidget";
 
 export default function FeedbackButton() {
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
   useFeedbackWidget({buttonRef, options: {
     tags: {
       component: 'FeedbackButton'

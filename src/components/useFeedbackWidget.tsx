@@ -5,7 +5,7 @@ import {useEffect, useState} from 'react';
 import * as Sentry from '@sentry/nextjs';
 
 interface Props {
-  buttonRef?: RefObject<HTMLButtonElement> | RefObject<HTMLAnchorElement>;
+  buttonRef?: RefObject<HTMLButtonElement | null> | RefObject<HTMLAnchorElement | null>;
   options?: {
     tags?: Record<string, string>
   },

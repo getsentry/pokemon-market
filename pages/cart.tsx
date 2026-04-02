@@ -4,6 +4,7 @@ import apiPost from "@/components/apiPost";
 import CartItem from "@/components/CartItem";
 import CartItemCSS from '@/components/CartItem.module.css';
 import cx from 'classnames';
+import OrderTotal from "@/components/OrderTotal";
 import useShoppingCart from "@/components/useShoppingCart";
 import {MdErrorOutline} from 'react-icons/md';
 import {BsCheck2Circle} from 'react-icons/bs';
@@ -50,6 +51,7 @@ export default function CartPage() {
             </li>
           ))}
         </CartItems>
+        <OrderTotal cart={cart} />
         <form
           className="p-4 self-end"
           onSubmit={(e) => {
